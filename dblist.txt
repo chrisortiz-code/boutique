@@ -1,0 +1,57 @@
+# Create sites table
+# c.execute('''
+# CREATE TABLE IF NOT EXISTS sites (
+#     id TEXT PRIMARY KEY,
+#     location TEXT NOT NULL,
+#     total_owing INTEGER DEFAULT 0
+# )
+# ''')
+
+# Create employees table
+# c.execute('''
+# CREATE TABLE IF NOT EXISTS employees (
+#     id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     current_owing INTEGER DEFAULT 0,
+#     items TEXT,
+#     site_id TEXT NOT NULL,
+#     FOREIGN KEY(site_id) REFERENCES sites(id)
+# )
+# ''')
+
+# Trigger to update total_owing in sites when an employee's current_owing changes
+# c.execute('''
+# CREATE TRIGGER IF NOT EXISTS update_site_total_owing
+# AFTER UPDATE OF current_owing ON employees
+# BEGIN
+#     UPDATE sites
+#     SET total_owing = (
+#         SELECT COALESCE(SUM(current_owing), 0)
+#         FROM employees
+#         WHERE site_id = NEW.site_id
+#     )
+#     WHERE id = NEW.site_id;
+# END;
+# ''')
+
+
+
+# c.execute('''
+# CREATE TABLE IF NOT EXISTS orders (
+#     id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     employee_id INTEGER NOT NULL,
+#     items TEXT NOT NULL,
+#     signature TEXT,
+#     date DATE NOT NULL DEFAULT (DATE('now'))
+# )
+# ''')
+
+# Create payments table for tracking payment history
+c.execute('''
+CREATE TABLE IF NOT EXISTS payments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    employee_id INTEGER NOT NULL,
+    amount INTEGER NOT NULL,
+    date DATE NOT NULL DEFAULT (DATE('now')),
+    note TEXT
+)
+''')

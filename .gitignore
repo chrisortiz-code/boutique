@@ -1,0 +1,7 @@
+# Ignore the Databases directory
+Databases/
+
+# Ignore the nohup output file
+nohup.out
+
+static/

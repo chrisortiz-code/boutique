@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Test SortableJS{% endblock %}
+
+{% block header_title %}Test SortableJS{% endblock %}
+
+{% block extra_head %}
+<style>
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        margin: 8px 0;
+        padding: 10px;
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        cursor: grab;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <h2>Drag to Reorder Products</h2>
+    <ul id="products-list">
+        <li data-id="1">Pizza</li>
+        <li data-id="2">Burger</li>
+        <li data-id="3">Pasta</li>
+        <li data-id="4">Salad</li>
+        <li>hi</li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- ✅ Local SortableJS -->
+<script src="{{ url_for('static', filename='js/Sortable.min.js') }}"></script>
+
+<script>
+    const sortable = new Sortable(document.getElementById('products-list'), {
+        animation: 150,
+        onEnd: function (evt) {
+            // Get new order
+            let order = [];
+            document.querySelectorAll('#products-list li').forEach(li => {
+                order.push(li.dataset.id);
+            });
+            console.log("New order:", order);
+            // Optional: send to server with fetch()
+        }
+    });
+</script>
+{% endblock %}

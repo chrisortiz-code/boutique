@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Purchases{% endblock %}
+
+{% block content %}
+<h2 style="text-align:center;">Purchases</h2>
+
+{% if entries %}
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in entries %}
+      <tr>
+        <td>{{ e.date }}</td>
+        <td>
+          <ul style="list-style:none; padding-left:0; margin:0;">
+            {% for it in e.order_items %}
+              <li>{{ it.name }} ({{ it.category }}) @ ${{ it.price }} × {{ it.qty }} = ${{ it.line_total }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>${{ e.total }}</td>
+        <td>
+          <form method="post" action="/orders/delete" onsubmit="return confirm('Delete this order?')">
+            <input type="hidden" name="order_id" value="{{ e.id }}">
+            <button type="submit" class="delete-btn" style="background:#e74c3c; color:#fff; border:none; border-radius:6px; padding:4px 10px;">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+      <tr style="font-weight:bold; background:#f9f9f9;">
+        <td colspan="2" style="text-align:right;">Grand Total</td>
+        <td>${{ grand_total }}</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+{% else %}
+  <div style="text-align:center; color:gray;">No purchases yet.</div>
+{% endif %}
+
+{% endblock %}

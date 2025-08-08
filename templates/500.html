@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Internal Server Error</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f8fa; color: #333; text-align: center; padding-top: 8vh; }
+    .error-container { background: #fff; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.07); display: inline-block; padding: 3em 4em; }
+    h1 { color: #be4272; font-size: 2.5em; margin-bottom: 0.5em; }
+    p { font-size: 1.2em; color: #555; }
+    .home-link { display: inline-block; margin-top: 2em; color: #5a866b; text-decoration: none; font-weight: bold; }
+    .home-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <h1>500 - Internal Server Error</h1>
+    <p>Sorry, something went wrong on our end.<br>
+    Please try again later or contact support if the problem persists.</p>
+    <a href="/" class="home-link">Return to Home</a>
+    {% if error %}
+      <div style="margin-top:2em; padding:1em; background:#ffeaea; color:#a53761; border-radius:8px; border:1px solid #be4272; max-width:500px; margin-left:auto; margin-right:auto;">
+        <b>Error details:</b><br>
+        <code>{{ error }}</code>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html> 

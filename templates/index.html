@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Boutique{% endblock %}
+
+{% block extra_head %}
+<style>
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .product { text-align: center; border: 5px solid #67b148; border-radius: 10px; padding: 8px; background:#fff; }
+  .product img { width: 100%; height: auto; max-height: 100px; object-fit: contain; }
+  .summary { max-width: 600px; margin: 20px auto; padding: 10px; border:1px dashed #aaa; border-radius: 8px; background:#fff; }
+  .line { display:flex; justify-content:space-between; padding: 4px 0; }
+  .checkout-button { background:#67b148; color:white; border:none; border-radius:8px; padding:10px 20px; }
+  .checkout-button:hover { background:#5a9b3d; }
+  .quantity-controls button { padding: 2px 8px; background-color: #67b148; color: white; border: none; border-radius: 4px; }
+  .quantity-controls button:hover { background-color: #5a9b3d; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="max-width: 1100px; margin: 0 auto;">
+  <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom: 20px;">
+    <label for="category_filter" style="font-weight:bold; font-size:1.1rem;">Category</label>
+    <select id="category_filter" style="min-width: 300px; padding: 8px 12px; border: 2px solid #67b148; border-radius: 6px; background: white; font-size: 1rem; color: #333;"></select>
+  </div>
+
+  <form id="orderForm" onsubmit="return false;">
+    <div id="products_grid" class="grid"></div>
+    <div class="summary" id="summary" style="margin-top: 16px;"></div>
+    <button type="button" class="checkout-button" id="checkout-btn" disabled>Checkout</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script id="categories-data" type="application/json">{{ categories | default([]) | tojson }}</script>
+<script id="products-data" type="application/json">{{ products | default([]) | tojson }}</script>
+<script>
+(function() {
+  const categories = JSON.parse(document.getElementById('categories-data').textContent || '[]');
+  const allProducts = JSON.parse(document.getElementById('products-data').textContent || '[]');
+  console.log('Loaded categories:', categories);
+  console.log('Loaded products:', allProducts);
+  const productById = Object.fromEntries(allProducts.map(p => [p[0], {id:p[0], name:p[1], price:p[2], image:p[3], inventory:p[4], category_id:p[5]}]));
+  const selectedQuantities = {}; // product_id -> qty
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('category_filter');
+    const checkoutBtn = document.getElementById('checkout-btn');
+
+    // Populate category select
+    categorySelect.innerHTML = '';
+    const optAll = document.createElement('option'); optAll.value = ''; optAll.textContent = '-- All Categories --'; categorySelect.appendChild(optAll);
+    categories.forEach(([id, name]) => { const o = document.createElement('option'); o.value = id; o.textContent = name; categorySelect.appendChild(o); });
+
+    function changeQty(productId, delta) {
+      const current = selectedQuantities[productId] || 0;
+      const next = Math.max(0, current + delta);
+      selectedQuantities[productId] = next;
+      const qtySpan = document.getElementById('qty-' + productId);
+      if (qtySpan) qtySpan.textContent = String(next);
+      updateSummary();
+      updateCheckoutBtn();
+    }
+
+    window.incQty = (pid) => changeQty(pid, +1);
+    window.decQty = (pid) => changeQty(pid, -1);
+
+    function createProductCard(pid, name, price, image) {
+      const qty = selectedQuantities[pid] || 0;
+      const card = document.createElement('div'); card.className = 'product';
+      card.innerHTML = `
+        ${image ? `<img src="${image}" alt="${name}">` : '<div style="height:100px;background:#f0f0f0;">No Image</div>'}
+        <div style=\"font-size:18px;\">${name} (${price})</div>
+        <div class=\"quantity-controls\">
+          <button type=\"button\" onclick=\"decQty(${pid})\">-</button>
+          <span id=\"qty-${pid}\">${qty}</span>
+          <button type=\"button\" onclick=\"incQty(${pid})\">+</button>
+        </div>
+      `;
+      return card;
+    }
+
+    function renderProducts(filterCatId) {
+      const grid = document.getElementById('products_grid');
+      grid.innerHTML = '';
+      console.log('Rendering products with filterCatId:', filterCatId);
+      console.log('All products:', allProducts);
+      
+      let filtered;
+      if (!filterCatId || filterCatId === '') {
+        // Show all products when "All Categories" is selected
+        filtered = allProducts;
+      } else {
+        // Filter by category
+        filtered = allProducts.filter(p => String(p[5]) === String(filterCatId));
+      }
+      
+      console.log('Filtered products:', filtered);
+      
+      if (!filterCatId || filterCatId === '') {
+        // Remove grid class from main container for all categories view
+        grid.className = '';
+        
+        // Group products by category and show headers
+        const productsByCategory = {};
+        filtered.forEach(([pid, name, price, image, inventory, category_id]) => {
+          const category = categories.find(([cid, cname]) => String(cid) === String(category_id))?.[1] || 'Unknown';
+          if (!productsByCategory[category]) {
+            productsByCategory[category] = [];
+          }
+          productsByCategory[category].push([pid, name, price, image, inventory, category_id]);
+        });
+        
+        // Render with category headers
+        Object.entries(productsByCategory).forEach(([categoryName, categoryProducts]) => {
+          const header = document.createElement('h3');
+          header.textContent = categoryName;
+          header.style.margin = '20px 0 10px 0';
+          header.style.color = '#67b148';
+          header.style.borderBottom = '2px solid #67b148';
+          header.style.paddingBottom = '5px';
+          grid.appendChild(header);
+          
+          const categoryGrid = document.createElement('div');
+          categoryGrid.className = 'grid';
+          categoryGrid.style.marginBottom = '30px';
+          
+          categoryProducts.forEach(([pid, name, price, image]) => {
+            categoryGrid.appendChild(createProductCard(pid, name, price, image));
+          });
+          
+          grid.appendChild(categoryGrid);
+        });
+      } else {
+        // Restore grid class for single category view
+        grid.className = 'grid';
+        
+        // Just show the grid of products for selected category
+        filtered.forEach(([pid, name, price, image]) => {
+          grid.appendChild(createProductCard(pid, name, price, image));
+        });
+      }
+    }
+
+    function updateCheckoutBtn() {
+      const hasItems = Object.values(selectedQuantities).some(q => q > 0);
+      checkoutBtn.disabled = !hasItems;
+    }
+
+    function updateSummary() {
+      const summaryDiv = document.getElementById('summary');
+      summaryDiv.innerHTML = '';
+      let total = 0;
+      Object.entries(selectedQuantities).forEach(([pidStr, qty]) => {
+        const pid = parseInt(pidStr, 10);
+        if (qty > 0) {
+          const prod = productById[pid];
+          const lineTotal = prod.price * qty;
+          total += lineTotal;
+          const div = document.createElement('div');
+          div.className = 'line';
+          div.innerHTML = `<span>${prod.name} x${qty}</span><span>$${lineTotal}</span>`;
+          summaryDiv.appendChild(div);
+        }
+      });
+      // Always show total, even when $0
+      const line = document.createElement('div');
+      line.className = 'line';
+      line.style.borderTop = '1px dotted #aaa';
+      line.style.paddingTop = '5px';
+      line.innerHTML = `<strong>Total:</strong><strong>$${total}</strong>`;
+      summaryDiv.appendChild(line);
+    }
+
+    checkoutBtn.addEventListener('click', async function() {
+      const items = Object.entries(selectedQuantities)
+        .filter(([, q]) => q > 0)
+        .map(([pid, q]) => ({ product_id: parseInt(pid, 10), qty: q }));
+      if (items.length === 0) return;
+      try {
+        const res = await fetch('/api/purchase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items }) });
+        const data = await res.json();
+        if (!res.ok) {
+          if (res.status === 409 && data && data.conflicts) {
+            alert('Inventory conflict for:\n' + data.conflicts.map(c => `${c.product_name}: requested ${c.requested}, available ${c.available}`).join('\n'));
+          } else {
+            alert('Error: ' + (data.error || 'Unknown'));
+          }
+          return;
+        }
+        // Redirect to gracias page with receipt data
+        const receiptData = Object.entries(selectedQuantities)
+          .filter(([, q]) => q > 0)
+          .map(([pid, q]) => {
+            const prod = productById[parseInt(pid, 10)];
+            const category = categories.find(([cid, cname]) => String(cid) === String(prod.category_id))?.[1] || 'Unknown';
+            return [prod.name, q, prod.price * q, category];
+          });
+        const receiptParam = encodeURIComponent(JSON.stringify(receiptData));
+        window.location.href = `/gracias?receipt=${receiptParam}`;
+      } catch (e) {
+        alert('Network error');
+      }
+    });
+
+    // Initial render (respect current TomSelect value)
+    renderProducts(null); // No TomSelect to get value from
+    updateSummary();
+    updateCheckoutBtn();
+    // Ensure filtering works with TomSelect change
+    categorySelect.addEventListener('change', (event) => {
+      console.log('Category filter changed to:', event.target.value);
+      renderProducts(event.target.value || null);
+    });
+  });
+})();
+</script>
+{% endblock %}
+

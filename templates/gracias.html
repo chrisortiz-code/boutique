@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Gracias{% endblock %}
+
+{% block extra_head %}
+<style>
+    .receipt {margin: 20px auto; max-width: 500px; text-align: left; border-top: 2px dotted #999; padding-top:10px;}
+    .line { display: flex; justify-content: space-between; margin-bottom: 5px;}
+    .thank-you { text-align: center; margin: 20px 0; }
+    .buttons { display: flex; gap: 1em; justify-content: center; margin-top: 2em; }
+    .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; color: white; }
+    .btn-home { background: #67b148; }
+    .btn-print { background: #67b148; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <div class="thank-you">
+        <h2>¡Gracias por tu compra!</h2>
+        <p>Tu pedido ha sido procesado exitosamente.</p>
+    </div>
+    
+    <div class="receipt">
+        {% set ns = namespace(total=0) %}
+        {%for item in receipt  %}
+        <div class="line">
+            <span>{{item.name}} ({{item.category}}) x{{item.qty}}</span>
+            <span>${{ item.subtotal}}</span>
+        </div>
+        {% set ns.total = ns.total + item.subtotal %}
+        {% endfor%}
+        <div class="line" style="border-top: 5px dotted #aaa; padding-top:5px;">
+            <strong>Total:</strong><strong> ${{ ns.total }}</strong>
+        </div>
+    </div>
+    
+    <div class="buttons">
+        <!-- <button type="button" onclick="window.print()" class="btn btn-print">Print Receipt</button> -->
+        <a href="/" class="btn btn-home" style="text-decoration: none;">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
