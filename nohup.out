@@ -1,0 +1,798 @@
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [02/Jul/2025 13:19:04] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2025 13:19:04] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [02/Jul/2025 13:19:04] "[33mGET /static/images/Screenshot_2025-03-28_174441.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:19:04] "[33mGET /static/images/1443EAEC-4EEB-4DF1-88BA-49392879485D.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:19:04] "[33mGET /static/images/WIN_20250611_15_34_27_Pro.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:19:04] "[33mGET /static/images/1CB62088-0701-4DAA-8A4A-39513CD74D04.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:19:16] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2025 13:19:16] "[33mGET /static/images/Screenshot_2025-03-28_174441.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:19:16] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [02/Jul/2025 13:19:16] "[33mGET /static/images/WIN_20250611_15_34_27_Pro.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:19:16] "[33mGET /static/images/1CB62088-0701-4DAA-8A4A-39513CD74D04.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:19:16] "[33mGET /static/images/1443EAEC-4EEB-4DF1-88BA-49392879485D.jpg HTTP/1.1[0m" 404 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [02/Jul/2025 13:24:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2025 13:24:18] "[33mGET /static/images/WIN_20250611_15_34_27_Pro.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:24:19] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [02/Jul/2025 13:24:19] "[33mGET /static/images/Screenshot_2025-03-28_174441.png HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:24:19] "[33mGET /static/images/1443EAEC-4EEB-4DF1-88BA-49392879485D.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:24:19] "[33mGET /static/images/1CB62088-0701-4DAA-8A4A-39513CD74D04.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [02/Jul/2025 13:24:19] "GET /static/icon.png HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2025 13:24:19] "[36mGET /static/icon.png HTTP/1.1[0m" 304 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 18:31:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:31:51] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:31:51] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 18:31:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:31:59] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:31:59] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 18:32:31] "POST /checkout HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:32:31] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:32:31] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:32:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:32:43] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:32:43] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:32:45] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:32:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:32:45] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:36:39] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:36:39] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:36:39] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:36:45] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:36:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:36:45] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:36:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:36:52] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:36:52] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 18:49:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:49:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:49:40] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:49:43] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:49:43] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:49:43] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 18:51:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:51:43] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:51:43] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:51:46] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:51:46] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:51:46] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 18:54:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:54:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:54:30] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:54:37] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:54:37] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:54:38] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:54:41] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:54:41] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:54:41] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:59:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:59:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:59:30] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:59:43] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:59:44] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:59:44] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:59:49] "POST /checkout HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:59:49] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:59:49] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:59:58] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 18:59:58] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 18:59:58] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:00:00] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:00:00] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:00:00] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:00:12] "GET /chart?start=2025-07-02&end=2025-07-02&offset=50 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:00:12] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:00:12] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:01:06] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:01:06] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:01:06] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:01:06] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:01:19] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:01:19] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:01:19] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:01:40] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:01:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:01:40] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:06:30] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:06:30] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:06:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:06:30] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:11:26] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:11:26] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:11:26] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:11:35] "[32mPOST /products/delete HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:11:35] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:11:35] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:11:35] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:22:49] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:22:49] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:22:49] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:22:49] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:23:27] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:23:27] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:23:27] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:23:27] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:25:01] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:25:01] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:25:01] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:25:01] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:30:40] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:30:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:30:40] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:30:45] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:30:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:30:45] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:30:46] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:30:46] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:30:46] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:30:57] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:30:57] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:30:57] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:31:35] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:31:35] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:31:35] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:31:35] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:31:46] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:31:47] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:31:47] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:31:47] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:14] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:32:15] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:32:15] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:15] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:28] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:32:28] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:32:28] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:28] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:36] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:32:36] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:32:36] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:36] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:43] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:32:43] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:32:43] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:43] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:58] "[32mPOST /products/delete HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:32:58] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:32:58] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:32:58] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:33:12] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:33:12] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:33:12] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:33:12] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:33:23] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:33:23] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:33:23] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:33:23] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:33:58] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:33:58] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:33:58] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:33:58] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:34:18] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:34:18] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:34:18] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:34:18] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:34:45] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:34:45] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:34:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:34:46] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:35:02] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:35:02] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:35:02] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:35:02] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:35:17] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:35:17] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:35:17] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:35:17] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:36:19] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:36:20] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:36:20] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:36:20] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:37:09] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:37:09] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:37:10] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:37:10] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:37:32] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:37:32] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:37:32] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:37:35] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:37:35] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:37:35] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:37:45] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:37:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:37:45] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:40:01] "[32mPOST /products/delete HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:40:01] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:40:01] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:40:01] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:40:05] "[32mPOST /products/delete HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:40:05] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:40:05] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:40:05] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:40:07] "[32mPOST /products/delete HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:40:07] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:40:07] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:40:07] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:40:26] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:40:26] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:40:26] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:40:26] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:41:02] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:41:02] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:41:03] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:41:03] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:41:08] "[32mPOST /products/delete HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:41:08] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:41:08] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:41:08] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:41:16] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:41:16] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:41:16] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:41:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:41:51] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:41:51] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:42:05] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:42:05] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:42:05] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:42:43] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:42:43] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:42:43] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:42:43] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:42:47] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:42:47] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:42:47] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:43:09] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:43:09] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:43:09] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:43:09] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:43:44] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:43:44] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:43:44] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:43:44] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:43:50] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:43:50] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:43:50] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:44:07] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 19:44:07] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:44:07] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:44:07] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:44:11] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:44:11] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:44:11] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:45:53] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:45:53] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:45:53] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+[2025-07-03 19:46:03,311] ERROR in app: Exception on /chart [GET]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/chris/good_food/app.py", line 146, in chart
+    summ[name]['qty'] +=qty
+    ~~~~^^^^^^
+KeyError: 'Vivi 100'
+127.0.0.1 - - [03/Jul/2025 19:46:03] "[35m[1mGET /chart HTTP/1.1[0m" 500 -
+[2025-07-03 19:46:20,747] ERROR in app: Exception on /chart [GET]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/chris/good_food/app.py", line 146, in chart
+    summ[name]['qty'] +=qty
+    ~~~~^^^^^^
+KeyError: 'Vivi 100'
+127.0.0.1 - - [03/Jul/2025 19:46:20] "[35m[1mGET /chart HTTP/1.1[0m" 500 -
+[2025-07-03 19:46:21,508] ERROR in app: Exception on /chart [GET]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/chris/good_food/app.py", line 146, in chart
+    summ[name]['qty'] +=qty
+    ~~~~^^^^^^
+KeyError: 'Vivi 100'
+127.0.0.1 - - [03/Jul/2025 19:46:21] "[35m[1mGET /chart HTTP/1.1[0m" 500 -
+127.0.0.1 - - [03/Jul/2025 19:46:25] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 19:46:25] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 19:46:25] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+[2025-07-03 19:46:29,683] ERROR in app: Exception on /chart [GET]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/chris/good_food/app.py", line 146, in chart
+    summ[name]['qty'] +=qty
+    ~~~~^^^^^^
+KeyError: 'Vivi 100'
+127.0.0.1 - - [03/Jul/2025 19:46:29] "[35m[1mGET /chart HTTP/1.1[0m" 500 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 20:17:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 20:17:52] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 20:17:52] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 20:17:56] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 20:17:56] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 20:17:56] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+[2025-07-03 20:18:01,274] ERROR in app: Exception on /update [POST]
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/chris/good_food/app.py", line 78, in update_prods
+    c.execute("UPDATE products SET name = ?, price = ?, image = ? WHERE id  = ?", (name, price, str(save_path), i))
+                                                                                                                ^
+NameError: name 'i' is not defined
+127.0.0.1 - - [03/Jul/2025 20:18:01] "[35m[1mPOST /update HTTP/1.1[0m" 500 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 21:12:30] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:12:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:12:30] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:12:32] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:12:32] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:12:32] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:12:44] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:12:44] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:12:44] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:12:44] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:13:07] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:13:07] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:13:08] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:13:08] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:13:32] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:13:32] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:13:32] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:13:32] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:13:51] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:13:52] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:13:52] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:13:52] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:14:26] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:14:26] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:14:26] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:09] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:09] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:09] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:18] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:18] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:18] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:18] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:19] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:19] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:19] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:19] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:20] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:20] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:20] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:20] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:20] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:20] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:20] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:20] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:21] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:21] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:21] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:21] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:21] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:21] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:21] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:21] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:22] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:22] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:22] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:23] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:24] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:25] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:26] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:27] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:27] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:27] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:27] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:27] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:27] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:28] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:28] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:28] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:28] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:28] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:28] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:28] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:28] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:30] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:31] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:32] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:33] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:34] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:35] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:37] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:38] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:39] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:40] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:41] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:41] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:41] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:41] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:41] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:41] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:41] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:41] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:42] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:42] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:42] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:42] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:42] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:42] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:42] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:42] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:43] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:43] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:43] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:43] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:44] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:44] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:44] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:44] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:44] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:45] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:46] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:46] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:46] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:46] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:46] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:46] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:46] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:46] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:47] "[32mPOST /del_order HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:15:47] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:15:47] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:15:47] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:16:09] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:16:09] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:16:09] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:16:13] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:16:13] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:16:13] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:16:28] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:16:28] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:16:28] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:16:28] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:16:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:16:52] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:16:52] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+ * Serving Flask app 'app'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [03/Jul/2025 21:20:59] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:20:59] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:20:59] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:22:37] "GET /chart HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:22:37] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:22:37] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:22:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:22:50] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:22:50] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:22:52] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:22:52] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:22:52] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:16] "[32mPOST /products/add HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:25:16] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:25:16] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:16] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:40] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:25:40] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:25:40] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:40] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:45] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:25:45] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:25:45] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:45] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:52] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:25:52] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:52] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:57] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:25:57] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:25:57] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:26:25] "[32mPOST /update HTTP/1.1[0m" 302 -
+127.0.0.1 - - [03/Jul/2025 21:26:25] "GET /products HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jul/2025 21:26:25] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [03/Jul/2025 21:26:25] "[36mGET /static/gf.png HTTP/1.1[0m" 304 -
