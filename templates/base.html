@@ -87,11 +87,11 @@
             </div>
             <!-- Navigation Buttons -->
             <div style="text-align: center;">
-                <a href="/" class="footer-button">Home</a>
+                <a href="/" class="footer-button">Inicio</a>
                 {% if session.get('is_admin') %}
-                <a href="/inventory" class="footer-button">Update Inventory</a>
-                <a href="/manage" class="footer-button">Manage</a>
-                <a href="/chart" class="footer-button">View Orders</a>
+                <a href="/inventory" class="footer-button">Actualizar Inventario</a>
+                <a href="/manage" class="footer-button">Administrar</a>
+                <a href="/chart" class="footer-button">Ver Pedidos</a>
                 {% endif %}
             </div>
         </div>
@@ -109,10 +109,10 @@
                 {% if session.get('is_admin') %}
             <form method="POST" action="/logout" style="display: inline;">
                 <button type="submit"
-                    style="background: none; border: none; color: #be4272; text-decoration: none; cursor: pointer; font-size: 0.9rem;">Logout</button>
+                    style="background: none; border: none; color: #be4272; text-decoration: none; cursor: pointer; font-size: 0.9rem;">Cerrar Sesión</button>
             </form>
             {% else %}
-            <a href="/admin" style="color: #be4272; text-decoration: none;">Admin Login</a>
+            <a href="/admin" style="color: #be4272; text-decoration: none;">Iniciar Sesión Admin</a>
             {% endif %}
             </p>
         </div>

@@ -13,11 +13,31 @@
 </style>
 {% endblock %}
 {% block content %}
-<h1 style="text-align:center; color:#67b148; margin-bottom:2rem;">Update Inventory</h1>
+<h1 style="text-align:center; color:#67b148; margin-bottom:2rem;">Actualizar Inventario</h1>
+
+{# Flash messages for inventory conflicts or updates #}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div style="max-width:900px;margin:0 auto 1em;">
+  {% for category, message in messages %}
+  <div class="flash {{ 'error' if category == 'error' else 'success' }}" style="padding: 1em; border-radius: 6px; margin-bottom: 0.75em; color: #fff; font-weight: bold;">
+    {{ message }}
+  </div>
+  {% endfor %}
+  
+  <script>
+    // Auto-dismiss flashes after a short delay
+    setTimeout(() => {
+      document.querySelectorAll('.flash').forEach(el => el.style.display = 'none');
+    }, 4500);
+  </script>
+</div>
+{% endif %}
+{% endwith %}
 
 <div class="inv-section">
   <form method="get" action="/inventory">
-    <label for="category_id" style="font-weight:bold; font-size:1.1rem;">Category</label>
+    <label for="category_id" style="font-weight:bold; font-size:1.1rem;">Categoría</label>
     <select id="category_id" name="category_id" style="min-width: 300px; padding: 8px 12px; border: 2px solid #67b148; border-radius: 6px; background: white; font-size: 1rem; color: #333;"></select>
   </form>
 </div>
@@ -29,7 +49,7 @@
     <!-- Products will be dynamically rendered here -->
   </div>
   <div style="text-align: right; margin-top: 20px;">
-    <button type="submit" id="save-changes-btn" class="btn-primary" style="padding:10px 24px; font-size:1.1rem;">Apply Inventory</button>
+    <button type="submit" id="save-changes-btn" class="btn-primary" style="padding:10px 24px; font-size:1.1rem;">Aplicar Inventario</button>
   </div>
 </form>
 
@@ -48,7 +68,7 @@
     if (includeAll) {
       const optAll = document.createElement('option');
       optAll.value = '';
-      optAll.textContent = '-- All Categories --';
+      optAll.textContent = '-- Todas las Categorías --';
       selectEl.appendChild(optAll);
     }
     categoriesData.forEach(([id, name]) => {
@@ -71,11 +91,11 @@
       </div>
       <div style="flex: 1 1 200px; min-width: 100px; display:flex; flex-direction:column;">
         <div style="font-weight:bold;">${name}</div>
-        <div style="color:#666; font-size:0.9rem;">Price: ${price} | In Stock: <span class="inv-val">${inventory}</span></div>
+        <div style="color:#666; font-size:0.9rem;">Precio: ${price} | En Stock: <span class="inv-val">${inventory}</span></div>
       </div>
       <input type="hidden" name="product_id" value="${id}">
       <div style="display:flex; flex-direction:column; align-items:flex-end;">
-        <label style="font-size:0.95rem; color:#555; margin-bottom:2px;">Receive Qty</label>
+        <label style="font-size:0.95rem; color:#555; margin-bottom:2px;">Cantidad a Recibir</label>
         <input class="receive-qty" type="number" name="received_qty" value="0" min="0" style="width: 90px; text-align:right; border: 2px solid #67b148; border-radius:6px; background:transparent; padding:4px 8px;">
       </div>
     `;
@@ -97,37 +117,38 @@
     }
     
     if (!filterCatId || filterCatId === '') {
-      // Group products by category and show headers
+      // Group products by category
       const productsByCategory = {};
       filtered.forEach(product => {
         const [id, name, price, image, inventory, category_id] = product;
-        const category = categoriesData.find(([cid, cname]) => String(cid) === String(category_id))?.[1] || 'Unknown';
-        if (!productsByCategory[category]) {
-          productsByCategory[category] = [];
-        }
-        productsByCategory[category].push(product);
+        const key = String(category_id);
+        if (!productsByCategory[key]) productsByCategory[key] = [];
+        productsByCategory[key].push(product);
       });
-      
-      // Render with category headers
-      Object.entries(productsByCategory).forEach(([categoryName, categoryProducts]) => {
+
+      // Render in categoriesData order (already ordered by position in backend)
+      categoriesData.forEach(([cid, cname]) => {
+        const list = productsByCategory[String(cid)];
+        if (!list || list.length === 0) return;
+
         const header = document.createElement('h3');
-        header.textContent = categoryName;
+        header.textContent = cname;
         header.style.margin = '20px 0 10px 0';
         header.style.color = '#67b148';
         header.style.borderBottom = '2px solid #67b148';
         header.style.paddingBottom = '5px';
         container.appendChild(header);
-        
+
         const categoryList = document.createElement('ul');
         categoryList.style.listStyle = 'none';
         categoryList.style.padding = '0';
         categoryList.style.maxWidth = '900px';
         categoryList.style.margin = '0 auto';
-        
-        categoryProducts.forEach(product => {
+
+        list.forEach(product => {
           categoryList.appendChild(createProductCard(product));
         });
-        
+
         container.appendChild(categoryList);
       });
     } else {

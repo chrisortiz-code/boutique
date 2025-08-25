@@ -49,7 +49,7 @@
 
     // Populate category select
     categorySelect.innerHTML = '';
-    const optAll = document.createElement('option'); optAll.value = ''; optAll.textContent = '-- All Categories --'; categorySelect.appendChild(optAll);
+    const optAll = document.createElement('option'); optAll.value = ''; optAll.textContent = '-- Todas las Categorías --'; categorySelect.appendChild(optAll);
     categories.forEach(([id, name]) => { const o = document.createElement('option'); o.value = id; o.textContent = name; categorySelect.appendChild(o); });
 
     function changeQty(productId, delta) {
@@ -69,7 +69,7 @@
       const qty = selectedQuantities[pid] || 0;
       const card = document.createElement('div'); card.className = 'product';
       card.innerHTML = `
-        ${image ? `<img src="${image}" alt="${name}">` : '<div style="height:100px;background:#f0f0f0;">No Image</div>'}
+        ${image ? `<img src="${image}" alt="${name}">` : '<div style="height:100px;background:#f0f0f0;">Sin Imagen</div>'}
         <div style=\"font-size:18px;\">${name} (${price})</div>
         <div class=\"quantity-controls\">
           <button type=\"button\" onclick=\"decQty(${pid})\">-</button>
@@ -111,24 +111,27 @@
           productsByCategory[category].push([pid, name, price, image, inventory, category_id]);
         });
         
-        // Render with category headers
-        Object.entries(productsByCategory).forEach(([categoryName, categoryProducts]) => {
+        // Render with category headers in the same order as categories list (already ordered by position)
+        categories.forEach(([cid, cname]) => {
+          const categoryProducts = productsByCategory[cname];
+          if (!categoryProducts || categoryProducts.length === 0) return;
+
           const header = document.createElement('h3');
-          header.textContent = categoryName;
+          header.textContent = cname;
           header.style.margin = '20px 0 10px 0';
           header.style.color = '#67b148';
           header.style.borderBottom = '2px solid #67b148';
           header.style.paddingBottom = '5px';
           grid.appendChild(header);
-          
+
           const categoryGrid = document.createElement('div');
           categoryGrid.className = 'grid';
           categoryGrid.style.marginBottom = '30px';
-          
+
           categoryProducts.forEach(([pid, name, price, image]) => {
             categoryGrid.appendChild(createProductCard(pid, name, price, image));
           });
-          
+
           grid.appendChild(categoryGrid);
         });
       } else {
@@ -181,10 +184,12 @@
         const res = await fetch('/api/purchase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items }) });
         const data = await res.json();
         if (!res.ok) {
-          if (res.status === 409 && data && data.conflicts) {
-            alert('Inventory conflict for:\n' + data.conflicts.map(c => `${c.product_name}: requested ${c.requested}, available ${c.available}`).join('\n'));
+          if (res.status === 409 && data && data.redirect) {
+            // Redirect to inventory page for conflicts
+            window.location.href = data.redirect;
+            return;
           } else {
-            alert('Error: ' + (data.error || 'Unknown'));
+            alert('Error: ' + (data.error || 'Desconocido'));
           }
           return;
         }
@@ -193,13 +198,13 @@
           .filter(([, q]) => q > 0)
           .map(([pid, q]) => {
             const prod = productById[parseInt(pid, 10)];
-            const category = categories.find(([cid, cname]) => String(cid) === String(prod.category_id))?.[1] || 'Unknown';
+            const category = categories.find(([cid, cname]) => String(cid) === String(prod.category_id))?.[1] || 'Desconocida';
             return [prod.name, q, prod.price * q, category];
           });
         const receiptParam = encodeURIComponent(JSON.stringify(receiptData));
         window.location.href = `/gracias?receipt=${receiptParam}`;
       } catch (e) {
-        alert('Network error');
+        alert('Error de red');
       }
     });
 

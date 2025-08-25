@@ -114,13 +114,25 @@ def submit_order():
 def get_categories():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    cursor.execute("SELECT id, name FROM categories ORDER BY name ASC")
+    # Order by explicit position, then name
+    cursor.execute("SELECT id, name FROM categories ORDER BY position ASC, name ASC")
     categories = cursor.fetchall()
     conn.close()
     return categories
 
 @app.route("/inventory")
 def inventory_manager():
+    # If prior purchase attempt had conflicts, show them as flashes
+    if session.get('inventory_conflicts'):
+        conflicts = session.pop('inventory_conflicts')
+        for conflict in conflicts:
+            if conflict.get('reason') == 'not_found':
+                flash(f"Product not found (ID: {conflict.get('product_id')})", "error")
+            else:
+                flash(
+                    f"Inventory conflict: {conflict.get('product_name')} (Category: {conflict.get('category', 'Unknown')}) - Requested: {conflict.get('requested')}, Available: {conflict.get('available')}",
+                    "error",
+                )
     category_id = request.args.get("category_id")
     try:
         category_id_int = int(category_id) if category_id else None
@@ -174,6 +186,31 @@ def manage():
     products_by_category = get_products_grouped_by_category()
     return render_template("manage.html", categories=categories, products_by_category=products_by_category)
 
+@app.route("/manage/update_category_positions", methods=["POST"])
+def update_category_positions():
+    if not session.get("is_admin"):
+        return "Unauthorized", 403
+    data = request.get_json(silent=True) or {}
+    ordered_ids = data.get("ordered_category_ids", [])
+    if not isinstance(ordered_ids, list):
+        return {"status": "error", "message": "Bad payload"}, 400
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    try:
+        for idx, cid in enumerate(ordered_ids, start=1):
+            try:
+                cid_int = int(cid)
+            except Exception:
+                continue
+            c.execute("UPDATE categories SET position = ? WHERE id = ?", (idx, cid_int))
+        conn.commit()
+        return {"status": "success"}, 200
+    except Exception as e:
+        conn.rollback()
+        return {"status": "error", "message": str(e)}, 500
+    finally:
+        conn.close()
+
 @app.route("/manage/add_category", methods=["POST"])
 def manage_add_category():
     if not session.get("is_admin"):
@@ -185,7 +222,10 @@ def manage_add_category():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     try:
-        c.execute("INSERT INTO categories (name) VALUES (?)", (name,))
+        # Append to end: set position = current max + 1
+        c.execute("SELECT COALESCE(MAX(position), 0) FROM categories")
+        next_pos = (c.fetchone()[0] or 0) + 1
+        c.execute("INSERT INTO categories (name, position) VALUES (?, ?)", (name, next_pos))
         conn.commit()
         flash(f"Category '{name}' added.", "success")
     except Exception as e:
@@ -464,10 +504,18 @@ def api_purchase():
                 category_name = cat_row[0]
         product_cache[pid] = {"name": pname, "price": int(pprice), "category": category_name}
         if qty > inv:
-            conflicts.append({"product_id": pid, "product_name": pname, "requested": qty, "available": inv})
+            conflicts.append({
+                "product_id": pid,
+                "product_name": pname,
+                "requested": qty,
+                "available": inv,
+                "category": category_name,
+            })
     if conflicts:
         conn.close()
-        return {"status": "conflict", "conflicts": conflicts}, 409
+        # Store conflicts for display on inventory page and instruct client to redirect
+        session['inventory_conflicts'] = conflicts
+        return {"status": "conflict", "redirect": "/inventory"}, 409
     # Deduct inventory
     for entry in items:
         pid = int(entry.get("product_id"))

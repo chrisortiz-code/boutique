@@ -3,16 +3,16 @@
 {% block title %}Purchases{% endblock %}
 
 {% block content %}
-<h2 style="text-align:center;">Purchases</h2>
+<h2 style="text-align:center;">Compras</h2>
 
 {% if entries %}
   <table>
     <thead>
       <tr>
-        <th>Date</th>
-        <th>Items</th>
+        <th>Fecha</th>
+        <th>Artículos</th>
         <th>Total</th>
-        <th>Delete</th>
+        <th>Eliminar</th>
       </tr>
     </thead>
     <tbody>
@@ -28,22 +28,22 @@
         </td>
         <td>${{ e.total }}</td>
         <td>
-          <form method="post" action="/orders/delete" onsubmit="return confirm('Delete this order?')">
+          <form method="post" action="/orders/delete" onsubmit="return confirm('¿Eliminar este pedido?')">
             <input type="hidden" name="order_id" value="{{ e.id }}">
-            <button type="submit" class="delete-btn" style="background:#e74c3c; color:#fff; border:none; border-radius:6px; padding:4px 10px;">Delete</button>
+            <button type="submit" class="delete-btn" style="background:#e74c3c; color:#fff; border:none; border-radius:6px; padding:4px 10px;">Eliminar</button>
           </form>
         </td>
       </tr>
       {% endfor %}
       <tr style="font-weight:bold; background:#f9f9f9;">
-        <td colspan="2" style="text-align:right;">Grand Total</td>
+        <td colspan="2" style="text-align:right;">Total General</td>
         <td>${{ grand_total }}</td>
         <td></td>
       </tr>
     </tbody>
   </table>
 {% else %}
-  <div style="text-align:center; color:gray;">No purchases yet.</div>
+  <div style="text-align:center; color:gray;">Aún no hay compras.</div>
 {% endif %}
 
 {% endblock %}
