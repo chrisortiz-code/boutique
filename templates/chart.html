@@ -3,7 +3,7 @@
 {% block title %}Purchases{% endblock %}
 
 {% block content %}
-<h2 style="text-align:center;">Compras</h2>
+<h2 style="text-align:center; font-size: 2rem;">Compras</h2>
 
 {% if entries %}
   <table>
@@ -22,7 +22,15 @@
         <td>
           <ul style="list-style:none; padding-left:0; margin:0;">
             {% for it in e.order_items %}
-              <li>{{ it.name }} ({{ it.category }}) @ ${{ it.price }} × {{ it.qty }} = ${{ it.line_total }}</li>
+              <li>
+                {{ it.name }} ({{ it.category }}) @ ${{ it.price }} × {{ it.qty }}
+                {% if it.discount_percent and it.discount_percent > 0 %}
+                  {% set original_total = it.price * it.qty %}
+                  <span style="text-decoration: line-through; color: #999; margin: 0 5px;">${{ original_total }}</span>
+                  <span style="color: #67b148; font-weight: bold;">-{{ it.discount_percent }}%</span>
+                {% endif %}
+                = <strong style="color: #67b148;">${{ it.line_total }}</strong>
+              </li>
             {% endfor %}
           </ul>
         </td>
@@ -30,7 +38,7 @@
         <td>
           <form method="post" action="/orders/delete" onsubmit="return confirm('¿Eliminar este pedido?')">
             <input type="hidden" name="order_id" value="{{ e.id }}">
-            <button type="submit" class="delete-btn" style="background:#e74c3c; color:#fff; border:none; border-radius:6px; padding:4px 10px;">Eliminar</button>
+            <button type="submit" class="delete-btn" style="background:#e74c3c; color:#fff; border:none; border-radius:6px; padding:4px 10px; font-size: 1.1rem;">Eliminar</button>
           </form>
         </td>
       </tr>
@@ -43,7 +51,7 @@
     </tbody>
   </table>
 {% else %}
-  <div style="text-align:center; color:gray;">Aún no hay compras.</div>
+  <div style="text-align:center; color:gray; font-size: 1.2rem;">Aún no hay compras.</div>
 {% endif %}
 
 {% endblock %}

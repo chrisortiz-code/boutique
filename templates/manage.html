@@ -4,12 +4,12 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='tom-select.css') }}">
 <style>
   .section { border: 2px solid #67b148; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
-  .title { font-size: 1.1rem; font-weight: bold; color: #67b148; margin-bottom: 0.5rem; }
+  .title { font-size: 1.25rem; font-weight: bold; color: #67b148; margin-bottom: 0.5rem; }
   table { border-collapse: collapse; width: 100%; }
-  th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-  th { background: #f0f0f0; }
+  th, td { border: 1px solid #ccc; padding: 10px; text-align: left; font-size: 1.1rem; }
+  th { background: #f0f0f0; font-size: 1.15rem; }
   .cat-header { display:flex; justify-content:space-between; align-items:center; }
-  .cat-name { font-size: 1.15rem; font-weight: 700; color: #67b148; }
+  .cat-name { font-size: 1.3rem; font-weight: 700; color: #67b148; }
   .cat-actions { display:flex; gap:8px; }
   .btn { border:none; border-radius:6px; padding:6px 12px; color:#fff; cursor:pointer; }
   .btn-edit { background:#67b148; }
@@ -70,7 +70,7 @@
       <tr class="product-row" data-product-id="{{ id }}" draggable="true">
         <td style="width:120px;">
           {% if image %}<img src="{{ image }}" alt="{{ name }}" style="max-width:80px; max-height:80px; object-fit:contain;">{% endif %}
-          <input type="file" name="image_{{ id }}" accept="image/*" style="width:100%; font-size:0.8rem; margin-top:4px;">
+          <input type="file" name="image_{{ id }}" accept="image/*" style="width:100%; font-size:0.95rem; margin-top:4px;">
         </td>
         <td>
           <input type="text" name="name_{{ id }}" value="{{ name }}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;">
@@ -114,20 +114,20 @@
   <form action="/manage/add_product" method="post" enctype="multipart/form-data" style="display:grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; align-items:center;">
     <input type="hidden" name="category_id" value="{{ cid }}">
           <div style="display:flex; flex-direction:column;">
-        <label style="font-size:0.95rem; color:#555; margin-bottom:2px;">Nombre</label>
-        <input type="text" name="name" required class="themed-input" style="font-weight:bold; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1rem; padding:4px 8px;">
+        <label style="font-size:1.05rem; color:#555; margin-bottom:2px;">Nombre</label>
+        <input type="text" name="name" required class="themed-input" style="font-weight:bold; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
       </div>
       <div style="display:flex; flex-direction:column;">
-        <label style="font-size:0.95rem; color:#555; margin-bottom:2px;">Precio</label>
-        <input type="number" name="price" required class="themed-input" style="text-align:right; border:2px solid #be4272; border-radius:6px; background:transparent; padding:4px 8px;">
+        <label style="font-size:1.05rem; color:#555; margin-bottom:2px;">Precio</label>
+        <input type="number" name="price" required class="themed-input" style="text-align:right; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
       </div>
       <div style="display:flex; flex-direction:column;">
-        <label style="font-size:0.95rem; color:#555; margin-bottom:2px;">Inventario Inicial</label>
-        <input type="number" name="start_inventory" value="0" class="themed-input" style="text-align:right; border:2px solid #be4272; border-radius:6px; background:transparent; padding:4px 8px;">
+        <label style="font-size:1.05rem; color:#555; margin-bottom:2px;">Inventario Inicial</label>
+        <input type="number" name="start_inventory" value="0" min="0" class="themed-input" style="text-align:right; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
       </div>
       <div style="display:flex; flex-direction:column;">
-        <label style="font-size:0.95rem; color:#555; margin-bottom:2px;">Imagen
-          <input type="file" name="image" accept="image/*" capture="environment" style="width: 180px;">
+        <label style="font-size:1.05rem; color:#555; margin-bottom:2px;">Imagen
+          <input type="file" name="image" accept="image/*" capture="environment" style="width: 180px; font-size: 1rem;">
         </label>
       </div>
       <div>
@@ -161,15 +161,30 @@
     const priceInput = document.querySelector(`input[name="price_${productId}"]`);
     const imageInput = document.querySelector(`input[name="image_${productId}"]`);
     
+    // Find the form that's specifically for this product (within the same row)
+    const productRow = document.querySelector(`tr[data-product-id="${productId}"]`);
+    const form = productRow ? productRow.querySelector(`form[action="/manage/update_product"]`) : null;
+    
+    if (!form) {
+      alert('Error: Could not find form for product');
+      return false;
+    }
+    
+    // Get the return_category_id from the form
+    const returnCategoryId = form.querySelector('input[name="return_category_id"]').value;
+    
     // Update the hidden form inputs
     document.getElementById(`name_input_${productId}`).value = nameInput.value;
     document.getElementById(`price_input_${productId}`).value = priceInput.value;
     
     // Handle the file input
     if (imageInput.files.length > 0) {
-      // Create a new FormData and append the file
-      const form = document.querySelector(`form[action="/manage/update_product"]`);
-      const formData = new FormData(form);
+      // Manually create FormData with the correct product_id
+      const formData = new FormData();
+      formData.append('product_id', productId);
+      formData.append('return_category_id', returnCategoryId);
+      formData.append('name', nameInput.value);
+      formData.append('price', priceInput.value);
       formData.append('image', imageInput.files[0]);
       
       // Submit the form with the file

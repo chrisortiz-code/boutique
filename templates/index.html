@@ -13,14 +13,70 @@
   .checkout-button:hover { background:#5a9b3d; }
   .quantity-controls button { padding: 2px 8px; background-color: #67b148; color: white; border: none; border-radius: 4px; }
   .quantity-controls button:hover { background-color: #5a9b3d; }
+  /* Tom Select styling */
+  .ts-wrapper.single { 
+    width: 100%;
+  }
+  #category_filter {
+    display: none; /* Hide original select - Tom Select replaces it */
+  }
+  .ts-wrapper.single .ts-control { 
+    border: 2px solid #67b148; 
+    border-radius: 6px; 
+    padding: 8px 12px; 
+    font-size: 1.15rem; 
+    min-height: auto;
+    background: white;
+    color: #333;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .ts-wrapper.single .ts-control .items {
+    display: none !important; /* Hide the selected item display */
+  }
+  .ts-wrapper.single .ts-control .ts-control-input {
+    width: 100% !important;
+    flex: 1;
+  }
+  .ts-wrapper.single .ts-control input {
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-size: 1.15rem;
+    padding: 0;
+    margin: 0;
+  }
+  .ts-wrapper.single .ts-control:focus { 
+    border-color: #5a9b3d; 
+    box-shadow: 0 0 0 2px rgba(103, 177, 72, 0.2);
+  }
+  .ts-dropdown { 
+    border: 2px solid #67b148; 
+    border-radius: 6px; 
+    font-size: 1.15rem;
+  }
+  .ts-dropdown .option { 
+    padding: 8px 12px; 
+  }
+  .ts-dropdown .option:hover, .ts-dropdown .active { 
+    background-color: #f0f8f0; 
+    color: #67b148;
+  }
+  .ts-dropdown .no-results { 
+    padding: 8px 12px; 
+    color: #666; 
+    font-style: italic;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
 <div style="max-width: 1100px; margin: 0 auto;">
-  <div style="display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom: 20px;">
-    <label for="category_filter" style="font-weight:bold; font-size:1.1rem;">Category</label>
-    <select id="category_filter" style="min-width: 300px; padding: 8px 12px; border: 2px solid #67b148; border-radius: 6px; background: white; font-size: 1rem; color: #333;"></select>
+  <div style="margin-bottom: 20px;">
+    <label for="category_filter" style="font-weight:bold; font-size:1.25rem; display:block; margin-bottom: 8px;">Category</label>
+    <select id="category_filter"></select>
   </div>
 
   <form id="orderForm" onsubmit="return false;">
@@ -32,6 +88,7 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="{{ url_for('static', filename='js/tom-select.min.js') }}"></script>
 <script id="categories-data" type="application/json">{{ categories | default([]) | tojson }}</script>
 <script id="products-data" type="application/json">{{ products | default([]) | tojson }}</script>
 <script>
@@ -42,6 +99,7 @@
   console.log('Loaded products:', allProducts);
   const productById = Object.fromEntries(allProducts.map(p => [p[0], {id:p[0], name:p[1], price:p[2], image:p[3], inventory:p[4], category_id:p[5]}]));
   const selectedQuantities = {}; // product_id -> qty
+  const discounts = {}; // product_id -> discount_percent (0, 5, 10, 15, 20, 25)
 
   document.addEventListener('DOMContentLoaded', function() {
     const categorySelect = document.getElementById('category_filter');
@@ -49,8 +107,60 @@
 
     // Populate category select
     categorySelect.innerHTML = '';
-    const optAll = document.createElement('option'); optAll.value = ''; optAll.textContent = '-- Todas las Categorías --'; categorySelect.appendChild(optAll);
+    const optAll = document.createElement('option'); optAll.value = ''; optAll.textContent = 'Todas las Categorías'; categorySelect.appendChild(optAll);
     categories.forEach(([id, name]) => { const o = document.createElement('option'); o.value = id; o.textContent = name; categorySelect.appendChild(o); });
+
+    // Initialize Tom Select with search functionality (similar to employee search pattern)
+    let tomSelectInstance = new TomSelect('#category_filter', {
+      create: false,
+      sortField: { field: "text", direction: "asc" },
+      allowEmptyOption: true,
+      onChange: function(value) {
+        renderProducts(value || null);
+      }
+    });
+    
+    // Make the input always visible and editable - hide the selected item display
+    setTimeout(() => {
+      const control = tomSelectInstance.control;
+      const items = control.querySelector('.items');
+      if (items) {
+        items.style.display = 'none';
+      }
+      const controlInput = tomSelectInstance.control_input;
+      if (controlInput) {
+        controlInput.style.width = '100%';
+        controlInput.style.flex = '1';
+        // Clear input when empty value is selected (to show placeholder)
+        controlInput.value = '';
+        
+        // Clear selection when user clicks/focuses on the input
+        controlInput.addEventListener('focus', function() {
+          if (tomSelectInstance.items.length > 0) {
+            tomSelectInstance.clear();
+            controlInput.value = '';
+          }
+        });
+        
+        // Update input value when selection changes
+        tomSelectInstance.on('item_add', function(value) {
+          if (!value || value === '') {
+            controlInput.value = '';
+          } else {
+            const option = tomSelectInstance.options[value];
+            if (option) {
+              controlInput.value = option.text;
+            }
+          }
+        });
+        tomSelectInstance.on('item_remove', function() {
+          controlInput.value = '';
+        });
+      }
+    }, 0);
+    
+    // Ensure original select is hidden (Tom Select should handle this, but just in case)
+    categorySelect.style.display = 'none';
 
     function changeQty(productId, delta) {
       const current = selectedQuantities[productId] || 0;
@@ -70,7 +180,7 @@
       const card = document.createElement('div'); card.className = 'product';
       card.innerHTML = `
         ${image ? `<img src="${image}" alt="${name}">` : '<div style="height:100px;background:#f0f0f0;">Sin Imagen</div>'}
-        <div style=\"font-size:18px;\">${name} (${price})</div>
+        <div style=\"font-size:20px;\">${name} (${price})</div>
         <div class=\"quantity-controls\">
           <button type=\"button\" onclick=\"decQty(${pid})\">-</button>
           <span id=\"qty-${pid}\">${qty}</span>
@@ -122,6 +232,7 @@
           header.style.color = '#67b148';
           header.style.borderBottom = '2px solid #67b148';
           header.style.paddingBottom = '5px';
+          header.style.fontSize = '1.5rem';
           grid.appendChild(header);
 
           const categoryGrid = document.createElement('div');
@@ -158,19 +269,86 @@
         const pid = parseInt(pidStr, 10);
         if (qty > 0) {
           const prod = productById[pid];
-          const lineTotal = prod.price * qty;
-          total += lineTotal;
+          const discountPercent = discounts[pid] || 0;
+          const originalLineTotal = prod.price * qty;
+          const discountAmount = Math.round(originalLineTotal * discountPercent / 100);
+          const discountedLineTotal = originalLineTotal - discountAmount;
+          total += discountedLineTotal;
+          
           const div = document.createElement('div');
           div.className = 'line';
-          div.innerHTML = `<span>${prod.name} x${qty}</span><span>$${lineTotal}</span>`;
+          div.style.marginBottom = '10px';
+          div.style.paddingBottom = '10px';
+          div.style.borderBottom = '1px solid #eee';
+          
+          // Product name and quantity
+          const nameQty = document.createElement('div');
+          nameQty.style.marginBottom = '8px';
+          nameQty.innerHTML = `<span><strong>${prod.name}</strong> x${qty}</span>`;
+          
+          // Discount slider
+          const sliderContainer = document.createElement('div');
+          sliderContainer.style.display = 'flex';
+          sliderContainer.style.alignItems = 'center';
+          sliderContainer.style.gap = '10px';
+          sliderContainer.style.marginBottom = '5px';
+          
+          const sliderLabel = document.createElement('label');
+          sliderLabel.textContent = 'Descuento:';
+          sliderLabel.style.fontSize = '0.9rem';
+          sliderLabel.style.minWidth = '80px';
+          
+          const slider = document.createElement('input');
+          slider.type = 'range';
+          slider.min = '0';
+          slider.max = '25';
+          slider.step = '5';
+          slider.value = discountPercent;
+          slider.style.flex = '1';
+          slider.style.cursor = 'pointer';
+          slider.addEventListener('input', function() {
+            discounts[pid] = parseInt(this.value);
+            updateSummary();
+          });
+          
+          const discountDisplay = document.createElement('span');
+          discountDisplay.textContent = discountPercent + '%';
+          discountDisplay.style.minWidth = '40px';
+          discountDisplay.style.fontWeight = 'bold';
+          discountDisplay.style.color = discountPercent > 0 ? '#67b148' : '#333';
+          
+          sliderContainer.appendChild(sliderLabel);
+          sliderContainer.appendChild(slider);
+          sliderContainer.appendChild(discountDisplay);
+          
+          // Price display
+          const priceDiv = document.createElement('div');
+          priceDiv.style.display = 'flex';
+          priceDiv.style.justifyContent = 'space-between';
+          priceDiv.style.alignItems = 'center';
+          
+          if (discountPercent > 0) {
+            priceDiv.innerHTML = `
+              <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">$${originalLineTotal}</span>
+              <span style="font-weight: bold; color: #67b148; font-size: 1.1rem;">$${discountedLineTotal}</span>
+            `;
+          } else {
+            priceDiv.innerHTML = `<span style="font-weight: bold;">$${discountedLineTotal}</span>`;
+          }
+          
+          div.appendChild(nameQty);
+          div.appendChild(sliderContainer);
+          div.appendChild(priceDiv);
           summaryDiv.appendChild(div);
         }
       });
       // Always show total, even when $0
       const line = document.createElement('div');
       line.className = 'line';
-      line.style.borderTop = '1px dotted #aaa';
-      line.style.paddingTop = '5px';
+      line.style.borderTop = '2px solid #67b148';
+      line.style.paddingTop = '10px';
+      line.style.marginTop = '10px';
+      line.style.fontSize = '1.2rem';
       line.innerHTML = `<strong>Total:</strong><strong>$${total}</strong>`;
       summaryDiv.appendChild(line);
     }
@@ -178,7 +356,11 @@
     checkoutBtn.addEventListener('click', async function() {
       const items = Object.entries(selectedQuantities)
         .filter(([, q]) => q > 0)
-        .map(([pid, q]) => ({ product_id: parseInt(pid, 10), qty: q }));
+        .map(([pid, q]) => ({ 
+          product_id: parseInt(pid, 10), 
+          qty: q,
+          discount_percent: discounts[parseInt(pid, 10)] || 0
+        }));
       if (items.length === 0) return;
       try {
         const res = await fetch('/api/purchase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items }) });
@@ -198,8 +380,12 @@
           .filter(([, q]) => q > 0)
           .map(([pid, q]) => {
             const prod = productById[parseInt(pid, 10)];
+            const discountPercent = discounts[parseInt(pid, 10)] || 0;
+            const originalTotal = prod.price * q;
+            const discountAmount = Math.round(originalTotal * discountPercent / 100);
+            const finalTotal = originalTotal - discountAmount;
             const category = categories.find(([cid, cname]) => String(cid) === String(prod.category_id))?.[1] || 'Desconocida';
-            return [prod.name, q, prod.price * q, category];
+            return [prod.name, q, finalTotal, category];
           });
         const receiptParam = encodeURIComponent(JSON.stringify(receiptData));
         window.location.href = `/gracias?receipt=${receiptParam}`;
@@ -208,15 +394,10 @@
       }
     });
 
-    // Initial render (respect current TomSelect value)
-    renderProducts(null); // No TomSelect to get value from
+    // Initial render
+    renderProducts(null);
     updateSummary();
     updateCheckoutBtn();
-    // Ensure filtering works with TomSelect change
-    categorySelect.addEventListener('change', (event) => {
-      console.log('Category filter changed to:', event.target.value);
-      renderProducts(event.target.value || null);
-    });
   });
 })();
 </script>

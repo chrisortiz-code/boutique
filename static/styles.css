@@ -2,13 +2,14 @@ body{
     background:linear-gradient(to bottom, rgb(238, 169, 229), #e9e8e8, white, white);
     background-attachment: fixed;
     min-height: 100vh;
+    font-size: 1.1rem;
 
 }
 
 button {
     margin-top: 20px;
     padding: 12px 24px;
-    font-size: 18px;
+    font-size: 20px;
     background-color: #67b148;
     color: white;
     border: none;
@@ -32,6 +33,7 @@ button:active {
     border-radius: 8px;
     margin-bottom: 16px;
     font-weight: 500;
+    font-size: 1.1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-left: 4px solid;
 }

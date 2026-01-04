@@ -127,10 +127,10 @@ def inventory_manager():
         conflicts = session.pop('inventory_conflicts')
         for conflict in conflicts:
             if conflict.get('reason') == 'not_found':
-                flash(f"Product not found (ID: {conflict.get('product_id')})", "error")
+                flash(f"Producto no encontrado (ID: {conflict.get('product_id')})", "error")
             else:
                 flash(
-                    f"Inventory conflict: {conflict.get('product_name')} (Category: {conflict.get('category', 'Unknown')}) - Requested: {conflict.get('requested')}, Available: {conflict.get('available')}",
+                    f"Conflicto de inventario: {conflict.get('product_name')} (Categoría: {conflict.get('category', 'Desconocida')}) - Solicitado: {conflict.get('requested')}, Disponible: {conflict.get('available')}",
                     "error",
                 )
     category_id = request.args.get("category_id")
@@ -522,24 +522,29 @@ def api_purchase():
         qty = int(entry.get("qty"))
         c.execute("UPDATE products SET inventory = inventory - ? WHERE id = ?", (qty, pid))
     # Create order + order_items
-    # Compute totals
+    # Compute totals with discounts
     order_items_rows = []
     order_total = 0
     for entry in items:
         pid = int(entry.get("product_id"))
         qty = int(entry.get("qty"))
+        discount_percent = int(entry.get("discount_percent", 0))
+        # Clamp discount between 0 and 25
+        discount_percent = max(0, min(25, discount_percent))
         info = product_cache.get(pid) or {"name": "Product #"+str(pid), "price": 0, "category": "Unknown"}
         unit_price = int(info["price"]) if isinstance(info, dict) else 0
-        line_total = unit_price * qty
+        original_line_total = unit_price * qty
+        discount_amount = round(original_line_total * discount_percent / 100)
+        line_total = original_line_total - discount_amount
         order_total += line_total
         category_name = info.get("category", "Unknown") if isinstance(info, dict) else "Unknown"
-        order_items_rows.append((pid, info["name"] if isinstance(info, dict) else str(info), category_name, unit_price, qty, line_total))
+        order_items_rows.append((pid, info["name"] if isinstance(info, dict) else str(info), category_name, unit_price, qty, line_total, discount_percent))
     c.execute("INSERT INTO orders (total) VALUES (?)", (order_total,))
     order_id = c.lastrowid
-    for pid, pname, category_name, unit_price, qty, line_total in order_items_rows:
+    for pid, pname, category_name, unit_price, qty, line_total, discount_percent in order_items_rows:
         c.execute(
-            "INSERT INTO order_items (order_id, product_id, product_name, category_name, unit_price, quantity, line_total) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (order_id, pid, pname, category_name, unit_price, qty, line_total)
+            "INSERT INTO order_items (order_id, product_id, product_name, category_name, unit_price, quantity, line_total, discount_percent) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (order_id, pid, pname, category_name, unit_price, qty, line_total, discount_percent)
         )
     conn.commit()
     conn.close()
@@ -700,7 +705,7 @@ def chart():
     order_id_to_items = {}
     for oid, _, _ in orders:
         c.execute(
-            "SELECT product_name, category_name, unit_price, quantity, line_total FROM order_items WHERE order_id = ? ORDER BY id ASC",
+            "SELECT product_name, category_name, unit_price, quantity, line_total, discount_percent FROM order_items WHERE order_id = ? ORDER BY id ASC",
             (oid,)
         )
         order_id_to_items[oid] = c.fetchall()
@@ -715,6 +720,7 @@ def chart():
                 'price': row[2],
                 'qty': row[3],
                 'line_total': row[4],
+                'discount_percent': row[5] if len(row) > 5 and row[5] is not None else 0,
             }
             for row in order_id_to_items.get(oid, [])
         ]

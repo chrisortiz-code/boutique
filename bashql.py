@@ -78,8 +78,14 @@ def init_boutique_db():
     #     """
     # )
     # Ensure 'position' column exists on legacy DBs
+    # try:
+    #     c.execute("ALTER TABLE categories ADD COLUMN position INTEGER DEFAULT 0")
+    # except sql.OperationalError:
+    #     pass
+    
+    # Ensure 'discount_percent' column exists on order_items for discount tracking
     try:
-        c.execute("ALTER TABLE categories ADD COLUMN position INTEGER DEFAULT 0")
+        c.execute("ALTER TABLE order_items ADD COLUMN discount_percent INTEGER DEFAULT 0")
     except sql.OperationalError:
         pass
 
