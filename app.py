@@ -172,9 +172,9 @@ def inventory_update():
     conn.commit()
     conn.close()
     if updated:
-        flash(f"Inventory updated for {updated} product(s).", "success")
+        flash(f"Inventario actualizado para {updated} producto(s).", "success")
     else:
-        flash("No inventory changes submitted.", "error")
+        flash("No se enviaron cambios de inventario.", "error")
     next_category = request.form.get("category_id") or ""
     return redirect(url_for("inventory_manager", category_id=next_category))
 
@@ -217,7 +217,7 @@ def manage_add_category():
         return "Unauthorized", 403
     name = request.form.get("category_name", "").strip()
     if not name:
-        flash("Category name required.", "error")
+        flash("Nombre de categoría requerido.", "error")
         return redirect(url_for("manage"))
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -227,10 +227,10 @@ def manage_add_category():
         next_pos = (c.fetchone()[0] or 0) + 1
         c.execute("INSERT INTO categories (name, position) VALUES (?, ?)", (name, next_pos))
         conn.commit()
-        flash(f"Category '{name}' added.", "success")
+        flash(f"Categoría '{name}' agregada.", "success")
     except Exception as e:
         conn.rollback()
-        flash(f"Error adding category: {e}", "error")
+        flash(f"Error al agregar categoría: {e}", "error")
     finally:
         conn.close()
     return redirect(url_for("manage"))
@@ -242,17 +242,17 @@ def manage_update_category():
     category_id = request.form.get("category_id")
     new_name = request.form.get("new_name", "").strip()
     if not category_id or not new_name:
-        flash("Category and name required.", "error")
+        flash("Categoría y nombre requeridos.", "error")
         return redirect(url_for("manage"))
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     try:
         c.execute("UPDATE categories SET name = ? WHERE id = ?", (new_name, category_id))
         conn.commit()
-        flash("Category updated.", "success")
+        flash("Categoría actualizada.", "success")
     except Exception as e:
         conn.rollback()
-        flash(f"Error updating category: {e}", "error")
+        flash(f"Error al actualizar categoría: {e}", "error")
     finally:
         conn.close()
     return redirect(url_for("manage", category_id=category_id))
@@ -263,7 +263,7 @@ def manage_delete_category():
         return "Unauthorized", 403
     category_id = request.form.get("category_id")
     if not category_id:
-        flash("Category required.", "error")
+        flash("Categoría requerida.", "error")
         return redirect(url_for("manage"))
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -271,15 +271,15 @@ def manage_delete_category():
         # Prevent deleting if products exist in this category
         c.execute("SELECT COUNT(*) FROM products WHERE category_id = ?", (category_id,))
         if (c.fetchone() or [0])[0] > 0:
-            flash("Cannot delete category with products. Move or delete products first.", "error")
+            flash("No se puede eliminar categoría con productos. Mueve o elimina los productos primero.", "error")
             conn.close()
             return redirect(url_for("manage", category_id=category_id))
         c.execute("DELETE FROM categories WHERE id = ?", (category_id,))
         conn.commit()
-        flash("Category deleted.", "success")
+        flash("Categoría eliminada.", "success")
     except Exception as e:
         conn.rollback()
-        flash(f"Error deleting category: {e}", "error")
+        flash(f"Error al eliminar categoría: {e}", "error")
     finally:
         conn.close()
     return redirect(url_for("manage"))
@@ -290,7 +290,7 @@ def manage_add_product():
         return "Unauthorized", 403
     name = smart_capitalize(request.form.get("name", "").strip())
     if check_duplicate_product_name(name):
-        flash(f"Product name '{name}' already exists.", "error")
+        flash(f"El nombre del producto '{name}' ya existe.", "error")
         return redirect(url_for("manage"))
     raw_price = request.form.get("price", "0").strip()
     try:
@@ -326,86 +326,89 @@ def manage_add_product():
             (name, price, image_path, next_position, category_id_int, start_inventory_int),
         )
         conn.commit()
-        flash(f"Product '{name}' added.", "success")
+        flash(f"Producto '{name}' agregado.", "success")
     except Exception as e:
         conn.rollback()
-        flash(f"Error adding product: {e}", "error")
+        flash(f"Error al agregar producto: {e}", "error")
     finally:
         conn.close()
     return redirect(url_for("manage", category_id=category_id_int))
 
 @app.route("/manage/update_product", methods=["POST"])
 def manage_update_product():
+    # 1. Permission Check
     if not session.get("is_admin"):
         return "Unauthorized", 403
     
+    # 2. Get Data
     product_id = request.form.get("product_id")
     return_category_id = request.form.get("return_category_id") or ""
     name = smart_capitalize(request.form.get("name", "").strip())
     raw_price = request.form.get("price", "0").strip()
     image = request.files.get("image")
     
+    # 3. Validations
     if not product_id:
-        flash("Missing product.", "error")
+        flash("Producto faltante.", "error")
         return redirect(url_for("manage", category_id=return_category_id))
     
     if not name:
-        flash("Product name is required.", "error")
+        flash("El nombre del producto es requerido.", "error")
         return redirect(url_for("manage", category_id=return_category_id))
     
-    # Check for duplicate name (excluding current product)
+    # Check duplicate (excluding current ID)
     if check_duplicate_product_name(name, exclude_id=int(product_id)):
-        flash(f"Product name '{name}' already exists. Product names must be unique.", "error")
+        flash(f"El nombre del producto '{name}' ya existe.", "error")
         return redirect(url_for("manage", category_id=return_category_id))
     
-    # Parse price
+    # 4. Clean Price
     try:
         clean_price = re.sub(r'[^\d-]', '', raw_price)
         price = int(clean_price)
-    except ValueError:
+    except Exception:
         price = 0
     
+    # 5. Connect to DB
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     try:
-        # Handle image upload if provided
+        # 6. Handle Image (The Fix)
         if image and image.filename:
             filename = secure_filename(image.filename)
             
-            # 1. Create the System Path (For saving to the hard drive)
-            # This uses os.path.join, so Windows gets backslashes (\) and Linux gets forward slashes (/)
-            system_path = os.path.join(UPLOAD_FOLDER, filename)
+            # Use absolute path to be safe on both Windows and Termux
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            save_folder = os.path.join(base_dir, 'static', 'images')
             
-            # Ensure the folder exists
-            os.makedirs(os.path.dirname(system_path), exist_ok=True)
+            # Make sure folder exists
+            os.makedirs(save_folder, exist_ok=True)
             
-            # Save the file using the system path
+            # A. System Path: For saving the file to the disk (Uses \ on Windows, / on Termux)
+            system_path = os.path.join(save_folder, filename)
             image.save(system_path)
             
-            # 2. Create the Database Path (For the browser URL)
-            # We force forward slashes here. This fixes the Android issue where
-            # images appear broken if the path contains Windows backslashes (\).
-            db_path = system_path.replace("\\", "/")
+            # B. Database Path: For the URL (Always uses /)
+            # We hardcode this so Android doesn't get confused by Windows backslashes
+            db_path = f"static/images/{filename}"
             
-            # Update product with new image path
+            # Update including image
             c.execute("UPDATE products SET name = ?, price = ?, image = ? WHERE id = ?", 
                      (name, price, db_path, product_id))
         else:
-            # Update product without changing image
+            # Update without changing image
             c.execute("UPDATE products SET name = ?, price = ? WHERE id = ?", 
                      (name, price, product_id))
         
         conn.commit()
-        flash("Product updated successfully.", "success")
+        flash("Producto actualizado exitosamente.", "success")
     except Exception as e:
         conn.rollback()
-        flash(f"Error updating product: {e}", "error")
+        flash(f"Error al actualizar producto: {e}", "error")
     finally:
         conn.close()
     
     return redirect(url_for("manage", category_id=return_category_id))
-
 
 @app.route("/inventory/add_product", methods=["POST"])
 def add_product_inventory():
@@ -447,10 +450,10 @@ def add_product_inventory():
             (name, price, image_path, next_position, category_id_int, start_inventory_int),
         )
         conn.commit()
-        flash(f"Product '{name}' added.", "success")
+        flash(f"Producto '{name}' agregado.", "success")
     except Exception as e:
         conn.rollback()
-        flash(f"Error adding product: {e}", "error")
+        flash(f"Error al agregar producto: {e}", "error")
     finally:
         conn.close()
     return redirect(url_for("inventory_manager", category_id=category_id_int))
@@ -552,7 +555,7 @@ def bulk_update_products():
         name = smart_capitalize(names[idx])
         if check_duplicate_product_name(name, exclude_id=prod_id):
             conn.close()
-            flash(f"Product name '{name}' already exists. Product names must be unique.", "error")
+            flash(f"El nombre del producto '{name}' ya existe. Los nombres de productos deben ser únicos.", "error")
             return redirect("/inventory")
         
 

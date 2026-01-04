@@ -2,110 +2,150 @@
 {% block title %}Update Inventory{% endblock %}
 {% block extra_head %}
 <style>
-  .inv-card { display:flex; gap:1rem; align-items:center; padding:1rem; border:1px solid #ccc; border-radius:8px; margin-bottom:0.5rem; background:#fff; }
-  .inv-thumb { width:80px; height:80px; display:flex; align-items:center; justify-content:center; border:1px solid #eee; border-radius:6px; background:#f9f9f9; }
-  .inv-val { font-weight:bold; color:#67b148; }
-  .btn-primary { background:#67b148; color:#fff; border:none; border-radius:6px; padding:8px 16px; cursor:pointer; }
-  .btn-primary:hover { background:#5a9b3d; }
-  .themed-input { border:2px solid #67b148; border-radius:6px; background:transparent; padding:4px 8px; }
-  .inv-section { max-width: 900px; margin: 0 auto 16px; }
-  .inv-section form { display: flex; flex-direction: column; gap: 10px; }
-  /* Tom Select styling */
-  .ts-wrapper.single { 
-    width: 100%;
+  .inv-card {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    background: #fff;
   }
+
+  .inv-thumb {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background: #f9f9f9;
+  }
+
+  .inv-val {
+    font-weight: bold;
+    color: #67b148;
+  }
+
+  .btn-primary {
+    background: #67b148;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: #5a9b3d;
+  }
+
+  .themed-input {
+    border: 2px solid #67b148;
+    border-radius: 6px;
+    background: transparent;
+    padding: 4px 8px;
+  }
+
+  .inv-section {
+    max-width: 900px;
+    margin: 0 auto 16px;
+  }
+
+  .inv-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* --- Green Tom Select Simplified Styling --- */
   #category_id {
-    display: none; /* Hide original select - Tom Select replaces it */
+    display: none;
   }
-  .ts-wrapper.single .ts-control { 
-    border: 2px solid #67b148; 
-    border-radius: 6px; 
-    padding: 8px 12px; 
-    font-size: 1.15rem; 
-    min-height: auto;
+
+  /* Hide original */
+
+  /* The Box */
+  .ts-control {
+    border: 2px solid #67b148 !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    font-size: 1.15rem !important;
+    min-height: 46px;
     background: white;
-    color: #333;
-    width: 100%;
     display: flex;
     align-items: center;
   }
-  .ts-wrapper.single .ts-control .items {
-    display: none !important; /* Hide the selected item display */
-  }
-  .ts-wrapper.single .ts-control .ts-control-input {
-    width: 100% !important;
+
+  /* The Input (Searching) */
+  .ts-control input {
+    font-size: 1.15rem !important;
     flex: 1;
   }
-  .ts-wrapper.single .ts-control input {
-    width: 100% !important;
-    border: none !important;
-    outline: none !important;
+
+  /* The Selected Item (Text only, no chips) */
+  .ts-control .item {
     background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 1.15rem !important;
+    color: #333 !important;
+  }
+
+  /* Dropdown */
+  .ts-dropdown {
+    border: 2px solid #67b148;
+    margin-top: 5px;
     font-size: 1.15rem;
-    padding: 0;
-    margin: 0;
+    z-index: 1000;
   }
-  .ts-wrapper.single .ts-control:focus { 
-    border-color: #5a9b3d; 
-    box-shadow: 0 0 0 2px rgba(103, 177, 72, 0.2);
-  }
-  .ts-dropdown { 
-    border: 2px solid #67b148; 
-    border-radius: 6px; 
-    font-size: 1.15rem;
-  }
-  .ts-dropdown .option { 
-    padding: 8px 12px; 
-  }
-  .ts-dropdown .option:hover, .ts-dropdown .active { 
-    background-color: #f0f8f0; 
+
+  .ts-dropdown .active {
+    background-color: #f0f8f0;
     color: #67b148;
-  }
-  .ts-dropdown .no-results { 
-    padding: 8px 12px; 
-    color: #666; 
-    font-style: italic;
   }
 </style>
 {% endblock %}
 {% block content %}
 <h1 style="text-align:center; color:#67b148; margin-bottom:2rem; font-size: 2rem;">Actualizar Inventario</h1>
 
-{# Flash messages for inventory conflicts or updates #}
+{# Flash messages #}
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
 <div style="max-width:900px;margin:0 auto 1em;">
   {% for category, message in messages %}
-  <div class="flash {{ 'error' if category == 'error' else 'success' }}" style="padding: 1em; border-radius: 6px; margin-bottom: 0.75em; color: #fff; font-weight: bold;">
+  <div class="flash {{ 'error' if category == 'error' else 'success' }}"
+    style="padding: 1em; border-radius: 6px; margin-bottom: 0.75em; color: #fff; font-weight: bold;">
     {{ message }}
   </div>
   {% endfor %}
-  
   <script>
-    // Auto-dismiss flashes after a short delay
-    setTimeout(() => {
-      document.querySelectorAll('.flash').forEach(el => el.style.display = 'none');
-    }, 4500);
+    setTimeout(() => { document.querySelectorAll('.flash').forEach(el => el.style.display = 'none'); }, 4500);
   </script>
 </div>
 {% endif %}
 {% endwith %}
 
 <div class="inv-section">
-  <form method="get" action="/inventory">
-    <label for="category_id" style="font-weight:bold; font-size:1.25rem; display:block; margin-bottom: 8px;">Categoría</label>
-    <select id="category_id" name="category_id"></select>
-  </form>
+  <!-- Replaced Form to use Client-Side Filtering with Tom Select -->
+  <label for="category_id"
+    style="font-weight:bold; font-size:1.25rem; display:block; margin-bottom: 8px;">Categoría</label>
+  <select id="category_id" name="category_id">
+    <option value="">Todas las Categorías</option>
+  </select>
 </div>
 
 <!-- Bulk inventory receive -->
-<form id="inventory-form" method="POST" action="/inventory/update" enctype="multipart/form-data" style="max-width: 900px; margin: 0 auto;">
+<form id="inventory-form" method="POST" action="/inventory/update" enctype="multipart/form-data"
+  style="max-width: 900px; margin: 0 auto;">
   <input type="hidden" name="category_id" value="{{ selected_category or '' }}">
-  <div id="products-container">
-    <!-- Products will be dynamically rendered here -->
-  </div>
+  <div id="products-container"></div>
   <div style="text-align: right; margin-top: 20px;">
-    <button type="submit" id="save-changes-btn" class="btn-primary" style="padding:10px 24px; font-size:1.25rem;">Aplicar Inventario</button>
+    <button type="submit" id="save-changes-btn" class="btn-primary"
+      style="padding:10px 24px; font-size:1.25rem;">Aplicar Inventario</button>
   </div>
 </form>
 
@@ -120,28 +160,12 @@
   const selectedCategory = JSON.parse(document.getElementById('selected-category').textContent || 'null');
   const productsData = JSON.parse(document.getElementById('products-data').textContent || '[]');
 
-  function populateCategorySelect(selectEl, includeAll) {
-    selectEl.innerHTML = '';
-    if (includeAll) {
-      const optAll = document.createElement('option');
-      optAll.value = '';
-      optAll.textContent = 'Todas las Categorías';
-      selectEl.appendChild(optAll);
-    }
-    categoriesData.forEach(([id, name]) => {
-      const opt = document.createElement('option');
-      opt.value = id;
-      opt.textContent = name;
-      selectEl.appendChild(opt);
-    });
-  }
-
   function createProductCard(product) {
     const [id, name, price, image, inventory] = product;
     const card = document.createElement('li');
     card.className = 'inv-card';
     card.setAttribute('data-id', id);
-    
+
     card.innerHTML = `
       <div class="inv-thumb">
         ${image ? `<img src="${image}" alt="${name}" style="max-width: 100%; max-height: 100%; object-fit: contain;">` : ''}
@@ -156,23 +180,20 @@
         <input class="receive-qty" type="number" name="received_qty" value="0" min="0" style="width: 90px; text-align:right; border: 2px solid #67b148; border-radius:6px; background:transparent; padding:4px 8px;">
       </div>
     `;
-    
     return card;
   }
 
   function renderProducts(filterCatId) {
     const container = document.getElementById('products-container');
     container.innerHTML = '';
-    
+
     let filtered;
     if (!filterCatId || filterCatId === '') {
-      // Show all products when "All Categories" is selected
       filtered = productsData;
     } else {
-      // Filter by category
       filtered = productsData.filter(p => String(p[5]) === String(filterCatId));
     }
-    
+
     if (!filterCatId || filterCatId === '') {
       // Group products by category
       const productsByCategory = {};
@@ -183,7 +204,7 @@
         productsByCategory[key].push(product);
       });
 
-      // Render in categoriesData order (already ordered by position in backend)
+      // Render headers
       categoriesData.forEach(([cid, cname]) => {
         const list = productsByCategory[String(cid)];
         if (!list || list.length === 0) return;
@@ -206,87 +227,51 @@
         list.forEach(product => {
           categoryList.appendChild(createProductCard(product));
         });
-
         container.appendChild(categoryList);
       });
     } else {
-      // Just show the list of products for selected category
+      // Just show list
       const productList = document.createElement('ul');
       productList.style.listStyle = 'none';
       productList.style.padding = '0';
       productList.style.maxWidth = '900px';
       productList.style.margin = '0 auto';
-      
       filtered.forEach(product => {
         productList.appendChild(createProductCard(product));
       });
-      
       container.appendChild(productList);
     }
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    // Top filter
-    const filterSel = document.getElementById('category_id');
-    populateCategorySelect(filterSel, true);
-    if (selectedCategory) filterSel.value = String(selectedCategory);
-    
-    // Initialize Tom Select with search functionality (identical to index page)
-    let tomSelectInstance = new TomSelect('#category_id', {
+  document.addEventListener('DOMContentLoaded', function () {
+    // 1. Setup Options
+    const selectEl = document.getElementById('category_id');
+    categoriesData.forEach(([id, name]) => {
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = name;
+      selectEl.appendChild(opt);
+    });
+
+    // 2. Initialize Clean "Snap-To" Tom Select
+    new TomSelect('#category_id', {
       create: false,
       sortField: { field: "text", direction: "asc" },
       allowEmptyOption: true,
-      onChange: function(value) {
+      maxItems: 1,
+      onChange: function (value) {
         renderProducts(value || '');
+      },
+      // Logic to clear input on click (fixes lagging/freezing)
+      onFocus: function () {
+        this.clear(true);
       }
     });
-    
-    // Make the input always visible and editable - hide the selected item display
-    setTimeout(() => {
-      const control = tomSelectInstance.control;
-      const items = control.querySelector('.items');
-      if (items) {
-        items.style.display = 'none';
-      }
-      const controlInput = tomSelectInstance.control_input;
-      if (controlInput) {
-        controlInput.style.width = '100%';
-        controlInput.style.flex = '1';
-        // Clear input when empty value is selected (to show placeholder)
-        controlInput.value = '';
-        
-        // Clear selection when user clicks/focuses on the input
-        controlInput.addEventListener('focus', function() {
-          if (tomSelectInstance.items.length > 0) {
-            tomSelectInstance.clear();
-            controlInput.value = '';
-          }
-        });
-        
-        // Update input value when selection changes
-        tomSelectInstance.on('item_add', function(value) {
-          if (!value || value === '') {
-            controlInput.value = '';
-          } else {
-            const option = tomSelectInstance.options[value];
-            if (option) {
-              controlInput.value = option.text;
-            }
-          }
-        });
-        tomSelectInstance.on('item_remove', function() {
-          controlInput.value = '';
-        });
-      }
-    }, 0);
-    
-    // Ensure original select is hidden (Tom Select should handle this, but just in case)
-    filterSel.style.display = 'none';
-    
-    // Initial render
+
+    // 3. Initial Render
     renderProducts(selectedCategory || '');
 
-    // Prevent Enter from accidentally submitting in per-row inputs; use Apply Inventory instead
+    // Prevent enter key submission
     document.getElementById('inventory-form').addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && ['INPUT', 'TEXTAREA'].includes(e.target.tagName) && e.target.type !== 'file') {
         e.preventDefault();

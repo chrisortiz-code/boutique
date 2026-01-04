@@ -1,33 +1,172 @@
 {% extends "base.html" %}
-{% block title %}Manage Categories & Products{% endblock %}
+{% block title %}Administrar Categorías{% endblock %}
 {% block extra_head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='tom-select.css') }}">
 <style>
-  .section { border: 2px solid #67b148; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
-  .title { font-size: 1.25rem; font-weight: bold; color: #67b148; margin-bottom: 0.5rem; }
-  table { border-collapse: collapse; width: 100%; }
-  th, td { border: 1px solid #ccc; padding: 10px; text-align: left; font-size: 1.1rem; }
-  th { background: #f0f0f0; font-size: 1.15rem; }
-  .cat-header { display:flex; justify-content:space-between; align-items:center; }
-  .cat-name { font-size: 1.3rem; font-weight: 700; color: #67b148; }
-  .cat-actions { display:flex; gap:8px; }
-  .btn { border:none; border-radius:6px; padding:6px 12px; color:#fff; cursor:pointer; }
-  .btn-edit { background:#67b148; }
-  .btn-edit:hover { background:#5a9b3d; }
-  .btn-delete { background:#e74c3c; }
-  .btn-add { background:#67b148; }
-  .btn-add:hover { background:#5a9b3d; }
-  .product-row { cursor: move; }
-  .product-row.dragging { opacity: 0.4; background-color: #f0f8f0; }
-  .sortable-tbody { min-height: 50px; }
+  /* --- Page Layout --- */
+  .section {
+    border: 2px solid #67b148;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #fff;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #67b148;
+    margin-bottom: 0.5rem;
+  }
+
+  /* --- Table Styling --- */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    font-size: 1.1rem;
+  }
+
+  th {
+    background: #f0f0f0;
+    font-size: 1.15rem;
+  }
+
+  /* --- Headers & Actions --- */
+  .cat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cat-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #67b148;
+  }
+
+  .cat-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* --- Buttons --- */
+  .btn {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .btn-edit {
+    background: #67b148;
+  }
+
+  .btn-edit:hover {
+    background: #5a9b3d;
+  }
+
+  .btn-delete {
+    background: #e74c3c;
+  }
+
+  .btn-add {
+    background: #67b148;
+  }
+
+  .btn-add:hover {
+    background: #5a9b3d;
+  }
+
+  /* --- Drag & Drop --- */
+  .product-row {
+    cursor: move;
+  }
+
+  .product-row.dragging {
+    opacity: 0.4;
+    background-color: #f0f8f0;
+  }
+
+  .sortable-tbody {
+    min-height: 50px;
+  }
+
+  /* --- Tom Select Green Styling --- */
+
+  /* CRITICAL: Force hide the original selects so you don't see duplicates */
+  #view_category,
+  .move-select {
+    display: none !important;
+  }
+
+  /* The Container */
+  .ts-wrapper.single .ts-control {
+    border: 2px solid #67b148 !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    font-size: 1.15rem !important;
+    min-height: 46px;
+    background: white;
+    display: flex;
+    align-items: center;
+  }
+
+  /* The Input (Searching) */
+  .ts-control input {
+    font-size: 1.15rem !important;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* The Selected Item (Text only, no chips) */
+  .ts-control .item {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #333 !important;
+    font-size: 1.15rem !important;
+  }
+
+  /* Dropdown Menu */
+  .ts-dropdown {
+    border: 2px solid #67b148;
+    margin-top: 5px;
+    z-index: 1000;
+  }
+
+  .ts-dropdown .active {
+    background-color: #f0f8f0;
+    color: #67b148;
+  }
+
+  /* Smaller Styling for Table Dropdowns */
+  .move-select-wrapper .ts-control {
+    min-height: 38px !important;
+    padding: 4px 8px !important;
+    font-size: 1rem !important;
+  }
+
+  .move-select-wrapper .ts-control .item {
+    font-size: 1rem !important;
+  }
 </style>
 {% endblock %}
 {% block content %}
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
-<div style="max-width:600px;margin:1em auto;">
+<div style="max-width:900px;margin:1em auto;">
   {% for category, message in messages %}
-  <div class="flash {{ 'error' if category == 'error' else 'success' }}" style="padding: 1em; border-radius: 6px; margin-bottom: 1em; color: #fff; font-weight: bold;">
+  <div class="flash {{ 'error' if category == 'error' else 'success' }}"
+    style="padding: 1em; border-radius: 6px; margin-bottom: 1em; color: #fff; font-weight: bold;">
     {{ message }}
   </div>
   {% endfor %}
@@ -35,95 +174,126 @@
 {% endif %}
 {% endwith %}
 
-{# Listing categories each with products and actions #}
+<!-- TOP FILTER SECTION -->
+<div style="max-width: 900px; margin: 0 auto 20px;">
+  <label style="font-weight:bold; font-size:1.25rem; display:block; margin-bottom: 8px;">Filtrar por Categoría</label>
+  <select id="view_category">
+    <option value="">Todas las Categorías</option>
+    {% for cid, cname in categories %}
+    <option value="{{ cid }}">{{ cname }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+{# Listing categories #}
 <div id="categories-container">
-{% for cid, cname in categories %}
-<div class="section category-section" data-category-id="{{ cid }}" draggable="true">
-  <div class="cat-header">
-    <div class="cat-name">{{ cname }}</div>
-    <div class="cat-actions">
-      <form method="post" action="/manage/update_category" style="display:flex; gap:6px; align-items:center;">
-        <input type="hidden" name="category_id" value="{{ cid }}">
-        <input type="text" name="new_name" placeholder="Rename" style="padding:6px 8px; border:1px solid #ccc; border-radius:6px;">
-        <button type="submit" class="btn btn-edit">Renombrar</button>
-      </form>
-              <form method="post" action="/manage/delete_category" onsubmit="return confirm('¿Eliminar esta categoría? Debes mover o eliminar sus productos primero.')">
+  {% for cid, cname in categories %}
+  <div class="section category-section" data-category-id="{{ cid }}" draggable="true">
+    <div class="cat-header">
+      <div class="cat-name">{{ cname }}</div>
+      <div class="cat-actions">
+        <form method="post" action="/manage/update_category" style="display:flex; gap:6px; align-items:center;">
+          <input type="hidden" name="category_id" value="{{ cid }}">
+          <input type="text" name="new_name" placeholder="Renombrar"
+            style="padding:6px 8px; border:1px solid #ccc; border-radius:6px;">
+          <button type="submit" class="btn btn-edit">Renombrar</button>
+        </form>
+        <form method="post" action="/manage/delete_category"
+          onsubmit="return confirm('¿Eliminar esta categoría? Debes mover o eliminar sus productos primero.')">
           <input type="hidden" name="category_id" value="{{ cid }}">
           <button type="submit" class="btn btn-delete">Eliminar</button>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Imagen</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Inventario</th>
-        <th>Mover A</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody class="sortable-tbody" data-category-id="{{ cid }}">
-    {% for id, name, price, image, inventory in products_by_category.get(cid, []) %}
-      <tr class="product-row" data-product-id="{{ id }}" draggable="true">
-        <td style="width:120px;">
-          {% if image %}<img src="{{ image }}" alt="{{ name }}" style="max-width:80px; max-height:80px; object-fit:contain;">{% endif %}
-          <input type="file" name="image_{{ id }}" accept="image/*" style="width:100%; font-size:0.95rem; margin-top:4px;">
-        </td>
-        <td>
-          <input type="text" name="name_{{ id }}" value="{{ name }}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;">
-        </td>
-        <td>
-          <input type="number" name="price_{{ id }}" value="{{ price }}" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;">
-        </td>
-        <td>{{ inventory }}</td>
-        <td>
-          <form method="post" action="/products/bulk_update" style="display:flex; gap:6px; align-items:center;">
-            <input type="hidden" name="id" value="{{ id }}">
-            <input type="hidden" name="name" value="{{ name }}">
-            <input type="hidden" name="price" value="{{ price }}">
-            <input type="hidden" name="position" value="0">
-            <input type="hidden" name="return_category_id" value="{{ cid }}">
-            <select name="new_category_id" class="move-select" data-product-id="{{ id }}" style="min-width: 180px;"></select>
-            <button type="submit" class="btn btn-edit">Mover</button>
-          </form>
-        </td>
-        <td>
-          <form method="post" action="/manage/update_product" enctype="multipart/form-data" style="display:flex; gap:6px; align-items:center;">
-            <input type="hidden" name="product_id" value="{{ id }}">
-            <input type="hidden" name="return_category_id" value="{{ cid }}">
-            <input type="hidden" name="name" id="name_input_{{ id }}" value="{{ name }}">
-            <input type="hidden" name="price" id="price_input_{{ id }}" value="{{ price }}">
-            <input type="hidden" name="image_file" id="image_file_{{ id }}">
-            <button type="submit" class="btn btn-edit" data-product-id="{{ id }}" onclick="prepareUpdate(this.dataset.productId)">Actualizar</button>
-          </form>
-          <form method="POST" action="/products/delete" onsubmit="return confirm('¿Eliminar este producto?');" style="margin-top:4px;">
-            <input type="hidden" name="name" value="{{ name }}">
-            <input type="hidden" name="return_category_id" value="{{ cid }}">
-            <button type="submit" class="btn btn-delete">Eliminar</button>
-          </form>
-        </td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Inventario</th>
+          <th>Mover A</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="sortable-tbody" data-category-id="{{ cid }}">
+        {% for id, name, price, image, inventory in products_by_category.get(cid, []) %}
+        <tr class="product-row" data-product-id="{{ id }}" draggable="true">
+          <td style="width:120px;">
+            {% if image %}<img src="{{ image }}" alt="{{ name }}"
+              style="max-width:80px; max-height:80px; object-fit:contain;">{% endif %}
+            <input type="file" name="image_{{ id }}" accept="image/*"
+              style="width:100%; font-size:0.95rem; margin-top:4px;">
+          </td>
+          <td>
+            <input type="text" name="name_{{ id }}" value="{{ name }}"
+              style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;">
+          </td>
+          <td>
+            <input type="number" name="price_{{ id }}" value="{{ price }}"
+              style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;">
+          </td>
+          <td>{{ inventory }}</td>
+          <td>
+            <form method="post" action="/products/bulk_update" style="display:flex; gap:6px; align-items:center;">
+              <input type="hidden" name="id" value="{{ id }}">
+              <input type="hidden" name="name" value="{{ name }}">
+              <input type="hidden" name="price" value="{{ price }}">
+              <input type="hidden" name="position" value="0">
+              <input type="hidden" name="return_category_id" value="{{ cid }}">
 
-  <div class="title" style="margin-top: 1rem;">Agregar Producto a {{ cname }}</div>
-  <form action="/manage/add_product" method="post" enctype="multipart/form-data" style="display:grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; align-items:center;">
-    <input type="hidden" name="category_id" value="{{ cid }}">
-          <div style="display:flex; flex-direction:column;">
+              <!-- Move Dropdown -->
+              <div class="move-select-wrapper" style="width: 180px;">
+                <select name="new_category_id" class="move-select">
+                  <option value="">Seleccionar...</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-edit">Mover</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" action="/manage/update_product" enctype="multipart/form-data"
+              style="display:flex; gap:6px; align-items:center;">
+              <input type="hidden" name="product_id" value="{{ id }}">
+              <input type="hidden" name="return_category_id" value="{{ cid }}">
+              <input type="hidden" name="name" id="name_input_{{ id }}" value="{{ name }}">
+              <input type="hidden" name="price" id="price_input_{{ id }}" value="{{ price }}">
+              <input type="hidden" name="image_file" id="image_file_{{ id }}">
+              <button type="submit" class="btn btn-edit" data-product-id="{{ id }}"
+                onclick="prepareUpdate(this.dataset.productId)">Actualizar</button>
+            </form>
+            <form method="POST" action="/products/delete" onsubmit="return confirm('¿Eliminar este producto?');"
+              style="margin-top:4px;">
+              <input type="hidden" name="name" value="{{ name }}">
+              <input type="hidden" name="return_category_id" value="{{ cid }}">
+              <button type="submit" class="btn btn-delete">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="title" style="margin-top: 1rem;">Agregar Producto a {{ cname }}</div>
+    <form action="/manage/add_product" method="post" enctype="multipart/form-data"
+      style="display:grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1rem; align-items:center;">
+      <input type="hidden" name="category_id" value="{{ cid }}">
+      <div style="display:flex; flex-direction:column;">
         <label style="font-size:1.05rem; color:#555; margin-bottom:2px;">Nombre</label>
-        <input type="text" name="name" required class="themed-input" style="font-weight:bold; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
+        <input type="text" name="name" required class="themed-input"
+          style="font-weight:bold; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
       </div>
       <div style="display:flex; flex-direction:column;">
         <label style="font-size:1.05rem; color:#555; margin-bottom:2px;">Precio</label>
-        <input type="number" name="price" required class="themed-input" style="text-align:right; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
+        <input type="number" name="price" required class="themed-input"
+          style="text-align:right; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
       </div>
       <div style="display:flex; flex-direction:column;">
         <label style="font-size:1.05rem; color:#555; margin-bottom:2px;">Inventario Inicial</label>
-        <input type="number" name="start_inventory" value="0" min="0" class="themed-input" style="text-align:right; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
+        <input type="number" name="start_inventory" value="0" min="0" class="themed-input"
+          style="text-align:right; border:2px solid #be4272; border-radius:6px; background:transparent; font-size:1.1rem; padding:4px 8px;">
       </div>
       <div style="display:flex; flex-direction:column;">
         <label style="font-size:1.05rem; color:#555; margin-bottom:2px;">Imagen
@@ -133,15 +303,16 @@
       <div>
         <button type="submit" class="btn btn-add">Agregar</button>
       </div>
-  </form>
- </div>
-{% endfor %}
+    </form>
+  </div>
+  {% endfor %}
 </div>
 
-<div class="section">
+<div class="section" style="margin-top: 40px;">
   <div class="title">Agregar Nueva Categoría</div>
   <form method="post" action="/manage/add_category" style="display:flex; gap:8px; align-items:center;">
-    <input type="text" name="category_name" placeholder="Nueva categoría" style="padding:6px 8px; border:1px solid #ccc; border-radius:6px;">
+    <input type="text" name="category_name" placeholder="Nueva categoría"
+      style="padding:6px 8px; border:1px solid #ccc; border-radius:6px;">
     <button type="submit" class="btn btn-add">Agregar Categoría</button>
   </form>
 </div>
@@ -152,179 +323,146 @@
 <script id="categories-data" type="application/json">{{ categories | default([]) | tojson }}</script>
 <script>
   const categories = JSON.parse(document.getElementById('categories-data').textContent || '[]');
-  let draggedElement = null;
-  let draggedCategory = null;
-  
-  function prepareUpdate(productId) {
-    // Get the current values from the input fields
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // --- 1. TOP FILTER LOGIC (Snap-to-Type) ---
+    new TomSelect('#view_category', {
+      create: false,
+      sortField: { field: "text", direction: "asc" },
+      maxItems: 1,
+      allowEmptyOption: true,
+      // Clears input on click so you can type immediately
+      onFocus: function () { this.clear(true); },
+      onChange: function (val) {
+        const sections = document.querySelectorAll('.category-section');
+        if (!val || val === "") {
+          // Show All
+          sections.forEach(sec => sec.style.display = 'block');
+        } else {
+          // Hide others
+          sections.forEach(sec => {
+            if (sec.getAttribute('data-category-id') === val) {
+              sec.style.display = 'block';
+            } else {
+              sec.style.display = 'none';
+            }
+          });
+        }
+      }
+    });
+
+    // --- 2. "Move To" Dropdowns (Smaller Styling) ---
+    document.querySelectorAll('select.move-select').forEach(sel => {
+      // Populate
+      categories.forEach(([id, name]) => {
+        const opt = document.createElement('option');
+        opt.value = id; opt.text = name;
+        sel.appendChild(opt);
+      });
+
+      // Init with Snap-to-Type logic
+      new TomSelect(sel, {
+        create: false,
+        sortField: { field: "text", direction: "asc" },
+        maxItems: 1,
+        // When clicked, clear the text so the user can search immediately
+        onFocus: function () { this.clear(true); }
+      });
+    });
+
+    // --- 3. Drag and Drop Logic ---
+    let draggedElement = null;
+    let draggedCategory = null;
+
+    // Product Row D&D
+    document.querySelectorAll('.product-row').forEach(row => {
+      row.addEventListener('dragstart', function () { draggedElement = this; this.classList.add('dragging'); });
+      row.addEventListener('dragover', function (e) { e.preventDefault(); });
+      row.addEventListener('dragend', function () { this.classList.remove('dragging'); });
+      row.addEventListener('drop', function (e) {
+        e.preventDefault();
+        if (draggedElement !== this) {
+          const tbody = this.closest('tbody');
+          const allRows = [...tbody.children];
+          const draggedIndex = allRows.indexOf(draggedElement);
+          const droppedIndex = allRows.indexOf(this);
+          if (draggedIndex < droppedIndex) tbody.insertBefore(draggedElement, this.nextSibling);
+          else tbody.insertBefore(draggedElement, this);
+          updatePositions(tbody);
+        }
+      });
+    });
+
+    // Category D&D
+    const catContainer = document.getElementById('categories-container');
+    const catSections = Array.from(catContainer.querySelectorAll('.category-section'));
+    catSections.forEach(sec => {
+      sec.addEventListener('dragstart', function (e) {
+        draggedCategory = this;
+        this.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      sec.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        const target = e.target.closest('.category-section');
+        if (!target || target === draggedCategory) return;
+        const rect = target.getBoundingClientRect();
+        if ((e.clientY - rect.top) < rect.height / 2) catContainer.insertBefore(draggedCategory, target);
+        else catContainer.insertBefore(draggedCategory, target.nextSibling);
+      });
+      sec.addEventListener('dragend', function () {
+        this.classList.remove('dragging');
+        const orderedIds = Array.from(catContainer.querySelectorAll('.category-section')).map(sec => sec.getAttribute('data-category-id'));
+        fetch('/manage/update_category_positions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ordered_category_ids: orderedIds })
+        });
+      });
+    });
+  });
+
+  function updatePositions(tbodyElement) {
+    const rows = Array.from(tbodyElement.children);
+    const categoryId = tbodyElement.getAttribute('data-category-id');
+    const positionData = rows.map((row, index) => ({
+      id: row.getAttribute('data-product-id'),
+      position: index + 1
+    }));
+    fetch('/manage/update_positions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ positions: positionData, category_id: categoryId })
+    });
+  }
+
+  // File Upload Helper
+  window.prepareUpdate = function (productId) {
     const nameInput = document.querySelector(`input[name="name_${productId}"]`);
     const priceInput = document.querySelector(`input[name="price_${productId}"]`);
     const imageInput = document.querySelector(`input[name="image_${productId}"]`);
-    
-    // Find the form that's specifically for this product (within the same row)
-    const productRow = document.querySelector(`tr[data-product-id="${productId}"]`);
-    const form = productRow ? productRow.querySelector(`form[action="/manage/update_product"]`) : null;
-    
-    if (!form) {
-      alert('Error: Could not find form for product');
-      return false;
-    }
-    
-    // Get the return_category_id from the form
+
+    const row = document.querySelector(`tr[data-product-id="${productId}"]`);
+    const form = row.querySelector(`form[action="/manage/update_product"]`);
     const returnCategoryId = form.querySelector('input[name="return_category_id"]').value;
-    
-    // Update the hidden form inputs
+
     document.getElementById(`name_input_${productId}`).value = nameInput.value;
     document.getElementById(`price_input_${productId}`).value = priceInput.value;
-    
-    // Handle the file input
+
     if (imageInput.files.length > 0) {
-      // Manually create FormData with the correct product_id
       const formData = new FormData();
       formData.append('product_id', productId);
       formData.append('return_category_id', returnCategoryId);
       formData.append('name', nameInput.value);
       formData.append('price', priceInput.value);
       formData.append('image', imageInput.files[0]);
-      
-      // Submit the form with the file
-      fetch('/manage/update_product', {
-        method: 'POST',
-        body: formData
-      }).then(response => {
-        if (response.ok) {
-          window.location.reload();
-        } else {
-          alert('Error updating product');
-        }
-      });
-      return false; // Prevent default form submission
+
+      fetch('/manage/update_product', { method: 'POST', body: formData })
+        .then(r => r.ok ? window.location.reload() : alert('Error'));
+      return false;
     }
-    
-    return true; // Allow normal form submission
+    return true;
   }
-  
-  function populateCategorySelect(selectEl) {
-    selectEl.innerHTML = '';
-    categories.forEach(([id, name]) => {
-      const opt = document.createElement('option');
-      opt.value = id;
-      opt.textContent = name;
-      selectEl.appendChild(opt);
-    });
-  }
-
-  // Drag and drop functionality
-  function handleDragStart(e) {
-    draggedElement = this;
-    this.classList.add('dragging');
-  }
-
-  function handleDragOver(e) {
-    e.preventDefault();
-  }
-
-  function handleDrop(e) {
-    e.preventDefault();
-    if (draggedElement !== this) {
-      const tbody = this.closest('tbody');
-      const allRows = [...tbody.children];
-      const draggedIndex = allRows.indexOf(draggedElement);
-      const droppedIndex = allRows.indexOf(this);
-      
-      if (draggedIndex < droppedIndex) {
-        tbody.insertBefore(draggedElement, this.nextSibling);
-      } else {
-        tbody.insertBefore(draggedElement, this);
-      }
-      
-      // Update position numbers in database
-      updatePositions(tbody);
-    }
-  }
-
-  function handleDragEnd(e) {
-    this.classList.remove('dragging');
-  }
-
-  function updatePositions(tbodyElement) {
-    const rows = Array.from(tbodyElement.children);
-    const categoryId = tbodyElement.getAttribute('data-category-id');
-    
-    const positionData = rows.map((row, index) => ({
-      id: row.getAttribute('data-product-id'),
-      position: index + 1
-    }));
-    
-    // Send position updates to server
-    fetch('/manage/update_positions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ positions: positionData, category_id: categoryId })
-    }).then(response => {
-      if (response.ok) {
-        console.log('Positions updated successfully');
-      } else {
-        console.error('Failed to update positions');
-      }
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // Set up drag and drop for all product rows
-    document.querySelectorAll('.product-row').forEach(row => {
-      row.addEventListener('dragstart', handleDragStart);
-      row.addEventListener('dragover', handleDragOver);
-      row.addEventListener('drop', handleDrop);
-      row.addEventListener('dragend', handleDragEnd);
-    });
-
-    // Populate category selects
-    document.querySelectorAll('select.move-select').forEach(sel => {
-      populateCategorySelect(sel);
-    });
-
-    // Make category sections sortable
-    const catContainer = document.getElementById('categories-container');
-    const catSections = Array.from(catContainer.querySelectorAll('.category-section'));
-
-    function catDragStart(e) {
-      draggedCategory = this;
-      this.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-    }
-    function catDragOver(e) {
-      e.preventDefault();
-      const target = e.target.closest('.category-section');
-      if (!target || target === draggedCategory) return;
-      const rect = target.getBoundingClientRect();
-      const before = (e.clientY - rect.top) < rect.height / 2;
-      if (before) {
-        catContainer.insertBefore(draggedCategory, target);
-      } else {
-        catContainer.insertBefore(draggedCategory, target.nextSibling);
-      }
-    }
-    function catDragEnd(e) {
-      this.classList.remove('dragging');
-      // Persist new order
-      const orderedIds = Array.from(catContainer.querySelectorAll('.category-section'))
-        .map(sec => sec.getAttribute('data-category-id'));
-      fetch('/manage/update_category_positions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ordered_category_ids: orderedIds })
-      }).then(r => {
-        if (!r.ok) console.error('Failed to save category order');
-      });
-    }
-    catSections.forEach(sec => {
-      sec.addEventListener('dragstart', catDragStart);
-      sec.addEventListener('dragover', catDragOver);
-      sec.addEventListener('dragend', catDragEnd);
-    });
-  });
 </script>
 {% endblock %}
