@@ -347,6 +347,12 @@ def manage_update_product():
     raw_price = request.form.get("price", "0").strip()
     image = request.files.get("image")
     
+    # Debug logging
+    print(f"DEBUG update_product: product_id={product_id}, name={name}, price={raw_price}")
+    print(f"DEBUG update_product: image={image}, image.filename={image.filename if image else None}")
+    print(f"DEBUG update_product: request.files keys={list(request.files.keys())}")
+    print(f"DEBUG update_product: request.form keys={list(request.form.keys())}")
+    
     # 3. Validations
     if not product_id:
         flash("Producto faltante.", "error")

@@ -262,7 +262,7 @@
               <input type="hidden" name="price" id="price_input_{{ id }}" value="{{ price }}">
               <input type="hidden" name="image_file" id="image_file_{{ id }}">
               <button type="submit" class="btn btn-edit" data-product-id="{{ id }}"
-                onclick="prepareUpdate(this.dataset.productId)">Actualizar</button>
+                onclick="return prepareUpdate(this.dataset.productId, event)">Actualizar</button>
             </form>
             <form method="POST" action="/products/delete" onsubmit="return confirm('¿Eliminar este producto?');"
               style="margin-top:4px;">
@@ -438,10 +438,19 @@
   }
 
   // File Upload Helper
-  window.prepareUpdate = function (productId) {
+  window.prepareUpdate = function (productId, event) {
+    // Prevent default form submission
+    if (event) {
+      event.preventDefault();
+    }
+
     const nameInput = document.querySelector(`input[name="name_${productId}"]`);
     const priceInput = document.querySelector(`input[name="price_${productId}"]`);
     const imageInput = document.querySelector(`input[name="image_${productId}"]`);
+
+    console.log('prepareUpdate called for productId:', productId);
+    console.log('Image input:', imageInput);
+    console.log('Image files:', imageInput ? imageInput.files : 'no image input');
 
     const row = document.querySelector(`tr[data-product-id="${productId}"]`);
     const form = row.querySelector(`form[action="/manage/update_product"]`);
@@ -450,7 +459,9 @@
     document.getElementById(`name_input_${productId}`).value = nameInput.value;
     document.getElementById(`price_input_${productId}`).value = priceInput.value;
 
-    if (imageInput.files.length > 0) {
+    if (imageInput && imageInput.files.length > 0) {
+      console.log('Image file found:', imageInput.files[0].name, 'Size:', imageInput.files[0].size);
+      
       const formData = new FormData();
       formData.append('product_id', productId);
       formData.append('return_category_id', returnCategoryId);
@@ -458,10 +469,41 @@
       formData.append('price', priceInput.value);
       formData.append('image', imageInput.files[0]);
 
-      fetch('/manage/update_product', { method: 'POST', body: formData })
-        .then(r => r.ok ? window.location.reload() : alert('Error'));
+      console.log('Sending FormData with image to /manage/update_product');
+      console.log('FormData contents:', {
+        product_id: productId,
+        return_category_id: returnCategoryId,
+        name: nameInput.value,
+        price: priceInput.value,
+        image: imageInput.files[0].name
+      });
+
+      fetch('/manage/update_product', { 
+        method: 'POST', 
+        body: formData 
+      })
+        .then(response => {
+          console.log('Response status:', response.status, response.statusText);
+          if (response.ok) {
+            console.log('Update successful, reloading page');
+            window.location.reload();
+          } else {
+            response.text().then(text => {
+              console.error('Error response:', text);
+              alert('Error: ' + text);
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Fetch error:', error);
+          alert('Error al actualizar producto: ' + error);
+        });
       return false;
+    } else {
+      console.log('No image file, submitting form normally');
     }
+    
+    // If no image, allow normal form submission
     return true;
   }
 </script>
