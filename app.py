@@ -372,12 +372,25 @@ def manage_update_product():
         # Handle image upload if provided
         if image and image.filename:
             filename = secure_filename(image.filename)
-            image_path = os.path.join(UPLOAD_FOLDER, filename)
-            os.makedirs(os.path.dirname(image_path), exist_ok=True)
-            image.save(image_path)
-            # Update product with new image
+            
+            # 1. Create the System Path (For saving to the hard drive)
+            # This uses os.path.join, so Windows gets backslashes (\) and Linux gets forward slashes (/)
+            system_path = os.path.join(UPLOAD_FOLDER, filename)
+            
+            # Ensure the folder exists
+            os.makedirs(os.path.dirname(system_path), exist_ok=True)
+            
+            # Save the file using the system path
+            image.save(system_path)
+            
+            # 2. Create the Database Path (For the browser URL)
+            # We force forward slashes here. This fixes the Android issue where
+            # images appear broken if the path contains Windows backslashes (\).
+            db_path = system_path.replace("\\", "/")
+            
+            # Update product with new image path
             c.execute("UPDATE products SET name = ?, price = ?, image = ? WHERE id = ?", 
-                     (name, price, image_path, product_id))
+                     (name, price, db_path, product_id))
         else:
             # Update product without changing image
             c.execute("UPDATE products SET name = ?, price = ? WHERE id = ?", 
@@ -393,35 +406,6 @@ def manage_update_product():
     
     return redirect(url_for("manage", category_id=return_category_id))
 
-@app.route("/manage/update_product_image", methods=["POST"])
-def manage_update_product_image():
-    if not session.get("is_admin"):
-        return "Unauthorized", 403
-    product_id = request.form.get("product_id")
-    return_category_id = request.form.get("return_category_id") or ""
-    image = request.files.get("image")
-    if not product_id:
-        flash("Missing product.", "error")
-        return redirect(url_for("manage", category_id=return_category_id))
-    if not image or not image.filename:
-        flash("No image selected.", "error")
-        return redirect(url_for("manage", category_id=return_category_id))
-    filename = secure_filename(image.filename)
-    image_path = os.path.join(UPLOAD_FOLDER, filename)
-    os.makedirs(os.path.dirname(image_path), exist_ok=True)
-    image.save(image_path)
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    try:
-        c.execute("UPDATE products SET image = ? WHERE id = ?", (image_path, product_id))
-        conn.commit()
-        flash("Product image updated.", "success")
-    except Exception as e:
-        conn.rollback()
-        flash(f"Error updating image: {e}", "error")
-    finally:
-        conn.close()
-    return redirect(url_for("manage", category_id=return_category_id))
 
 @app.route("/inventory/add_product", methods=["POST"])
 def add_product_inventory():
@@ -845,7 +829,83 @@ def update_manage_positions():
     finally:
         conn.close()
 
+from flask import render_template_string
+import os
+
+@app.route("/debug_upload", methods=["GET", "POST"])
+def debug_upload_route():
+    # 1. THE HTML (Simple form)
+    html_template = """
+    <!DOCTYPE html>
+    <html>
+    <body style="font-family: sans-serif; padding: 20px;">
+        <h2>Debug Upload Tool (No Markup)</h2>
+        
+        <!-- DISPLAY STATUS MESSAGE HERE -->
+        {% if msg %}
+            <div style="padding:15px; background:#e0ffe0; border:1px solid green; margin-bottom:15px;">
+                {{ msg }}
+            </div>
+        {% endif %}
+
+        {% if err %}
+            <div style="padding:15px; background:#ffe0e0; border:1px solid red; margin-bottom:15px;">
+                {{ err }}
+            </div>
+        {% endif %}
+        
+        <form method="POST" enctype="multipart/form-data" style="background:#ddd; padding:20px;">
+            <label>Select Image:</label><br>
+            <input type="file" name="image" required>
+            <br><br>
+            <input type="submit" value="Upload Test">
+        </form>
+        <br>
+        <a href="/">Back to Home</a>
+    </body>
+    </html>
+    """
+
+    msg = ""
+    err = ""
+
+    # 2. THE LOGIC
+    if request.method == "POST":
+        image = request.files.get("image")
+        
+        if not image or image.filename == "":
+            err = "No file selected."
+        else:
+            try:
+                filename = secure_filename(image.filename)
+                
+                # --- A. FIND PATHS ---
+                # Get the folder where app.py lives
+                base_dir = os.path.dirname(os.path.abspath(__file__))
+                
+                # Target: static/images
+                save_folder = os.path.join(base_dir, 'static', 'images')
+                
+                # Create folder if missing
+                if not os.path.exists(save_folder):
+                    os.makedirs(save_folder)
+                    print(f"DEBUG: Created directory {save_folder}")
+
+                # --- B. SAVE TO DISK ---
+                # Use system separators (\ on Windows, / on Android)
+                system_path = os.path.join(save_folder, filename)
+                image.save(system_path)
+                
+                # --- C. DATABASE URL ---
+                # Force forward slashes so it works on web browsers
+                db_path = f"static/images/{filename}"
+                
+                msg = f"SUCCESS! Saved to: {system_path} ||| Database URL would be: {db_path}"
+                
+            except Exception as e:
+                err = f"ERROR: {str(e)}"
+
+    return render_template_string(html_template, msg=msg, err=err)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-

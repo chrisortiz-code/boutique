@@ -4,84 +4,141 @@
 
 {% block extra_head %}
 <style>
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .product { text-align: center; border: 5px solid #67b148; border-radius: 10px; padding: 8px; background:#fff; }
-  .product img { width: 100%; height: auto; max-height: 100px; object-fit: contain; }
-  .summary { max-width: 600px; margin: 20px auto; padding: 10px; border:1px dashed #aaa; border-radius: 8px; background:#fff; }
-  .line { display:flex; justify-content:space-between; padding: 4px 0; }
-  .checkout-button { background:#67b148; color:white; border:none; border-radius:8px; padding:10px 20px; }
-  .checkout-button:hover { background:#5a9b3d; }
-  .quantity-controls button { padding: 2px 8px; background-color: #67b148; color: white; border: none; border-radius: 4px; }
-  .quantity-controls button:hover { background-color: #5a9b3d; }
-  /* Tom Select styling */
-  .ts-wrapper.single { 
+  /* --- 1. Grid & Product Card Styling --- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .product {
+    text-align: center;
+    border: 5px solid #67b148;
+    border-radius: 10px;
+    padding: 8px;
+    background: #fff;
+  }
+
+  .product img {
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    object-fit: contain;
+  }
+
+  .quantity-controls button {
+    padding: 2px 8px;
+    background-color: #67b148;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* --- 2. Summary & Checkout Styling --- */
+  .summary {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px dashed #aaa;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .summary-row {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  .checkout-button {
+    background: #67b148;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
     width: 100%;
   }
+
+  .checkout-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+
+  /* --- 3. Tom Select Simplified Green Styling --- */
   #category_filter {
-    display: none; /* Hide original select - Tom Select replaces it */
+    display: none;
   }
-  .ts-wrapper.single .ts-control { 
-    border: 2px solid #67b148; 
-    border-radius: 6px; 
-    padding: 8px 12px; 
-    font-size: 1.15rem; 
-    min-height: auto;
+
+  /* Hide original */
+
+  /* The Box */
+  .ts-control {
+    border: 2px solid #67b148 !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    font-size: 1.15rem !important;
+    min-height: 46px;
     background: white;
-    color: #333;
-    width: 100%;
     display: flex;
     align-items: center;
   }
-  .ts-wrapper.single .ts-control .items {
-    display: none !important; /* Hide the selected item display */
-  }
-  .ts-wrapper.single .ts-control .ts-control-input {
-    width: 100% !important;
+
+  /* The Input (Searching) */
+  .ts-control input {
+    font-size: 1.15rem !important;
     flex: 1;
   }
-  .ts-wrapper.single .ts-control input {
-    width: 100% !important;
-    border: none !important;
-    outline: none !important;
+
+  /* The Selected Item (Make it look like text, not a tag/chip) */
+  .ts-control .item {
     background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 1.15rem !important;
+    color: #333 !important;
+  }
+
+  /* Dropdown */
+  .ts-dropdown {
+    border: 2px solid #67b148;
+    margin-top: 5px;
     font-size: 1.15rem;
-    padding: 0;
-    margin: 0;
+    z-index: 1000;
   }
-  .ts-wrapper.single .ts-control:focus { 
-    border-color: #5a9b3d; 
-    box-shadow: 0 0 0 2px rgba(103, 177, 72, 0.2);
-  }
-  .ts-dropdown { 
-    border: 2px solid #67b148; 
-    border-radius: 6px; 
-    font-size: 1.15rem;
-  }
-  .ts-dropdown .option { 
-    padding: 8px 12px; 
-  }
-  .ts-dropdown .option:hover, .ts-dropdown .active { 
-    background-color: #f0f8f0; 
+
+  .ts-dropdown .active {
+    background-color: #f0f8f0;
     color: #67b148;
-  }
-  .ts-dropdown .no-results { 
-    padding: 8px 12px; 
-    color: #666; 
-    font-style: italic;
   }
 </style>
 {% endblock %}
 
 {% block content %}
 <div style="max-width: 1100px; margin: 0 auto;">
+
+  <!-- Search / Filter -->
   <div style="margin-bottom: 20px;">
-    <label for="category_filter" style="font-weight:bold; font-size:1.25rem; display:block; margin-bottom: 8px;">Category</label>
-    <select id="category_filter"></select>
+    <label style="font-weight:bold; font-size:1.25rem; display:block; margin-bottom: 8px;">Category</label>
+    <select id="category_filter">
+      <option value="">Todas las Categorías</option>
+      {% for id, name in categories %}
+      <option value="{{ id }}">{{ name }}</option>
+      {% endfor %}
+    </select>
   </div>
 
   <form id="orderForm" onsubmit="return false;">
+    <!-- Product Grid -->
     <div id="products_grid" class="grid"></div>
-    <div class="summary" id="summary" style="margin-top: 16px;"></div>
+
+    <!-- Cart Summary -->
+    <div class="summary" id="summary"></div>
+
+    <!-- Checkout -->
     <button type="button" class="checkout-button" id="checkout-btn" disabled>Checkout</button>
   </form>
 </div>
@@ -89,317 +146,234 @@
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/tom-select.min.js') }}"></script>
-<script id="categories-data" type="application/json">{{ categories | default([]) | tojson }}</script>
-<script id="products-data" type="application/json">{{ products | default([]) | tojson }}</script>
+<!-- Inject Data safely -->
 <script>
-(function() {
-  const categories = JSON.parse(document.getElementById('categories-data').textContent || '[]');
-  const allProducts = JSON.parse(document.getElementById('products-data').textContent || '[]');
-  console.log('Loaded categories:', categories);
-  console.log('Loaded products:', allProducts);
-  const productById = Object.fromEntries(allProducts.map(p => [p[0], {id:p[0], name:p[1], price:p[2], image:p[3], inventory:p[4], category_id:p[5]}]));
-  const selectedQuantities = {}; // product_id -> qty
-  const discounts = {}; // product_id -> discount_percent (0, 5, 10, 15, 20, 25)
+  const CATEGORIES = {{ categories | default ([]) | tojson }};
+  const PRODUCTS = {{ products | default ([]) | tojson }};
+</script>
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const categorySelect = document.getElementById('category_filter');
-    const checkoutBtn = document.getElementById('checkout-btn');
+<script>
+  (function () {
+    // --- 1. Data Setup ---
+    // Create a fast lookup map for products
+    const productsMap = {};
+    PRODUCTS.forEach(p => {
+      productsMap[p[0]] = { id: p[0], name: p[1], price: p[2], image: p[3], cat_id: p[5] };
+    });
 
-    // Populate category select
-    categorySelect.innerHTML = '';
-    const optAll = document.createElement('option'); optAll.value = ''; optAll.textContent = 'Todas las Categorías'; categorySelect.appendChild(optAll);
-    categories.forEach(([id, name]) => { const o = document.createElement('option'); o.value = id; o.textContent = name; categorySelect.appendChild(o); });
+    // State
+    const cart = {};      // { productId: quantity }
+    const discounts = {}; // { productId: percent }
 
-    // Initialize Tom Select with search functionality (similar to employee search pattern)
-    let tomSelectInstance = new TomSelect('#category_filter', {
+    // --- 2. Initialize Tom Select (Simple & Clean) ---
+    let ts = new TomSelect('#category_filter', {
       create: false,
       sortField: { field: "text", direction: "asc" },
+      maxItems: 1,
       allowEmptyOption: true,
-      onChange: function(value) {
-        renderProducts(value || null);
+      onChange: function (val) {
+        renderGrid(val);
       }
     });
-    
-    // Make the input always visible and editable - hide the selected item display
-    setTimeout(() => {
-      const control = tomSelectInstance.control;
-      const items = control.querySelector('.items');
-      if (items) {
-        items.style.display = 'none';
-      }
-      const controlInput = tomSelectInstance.control_input;
-      if (controlInput) {
-        controlInput.style.width = '100%';
-        controlInput.style.flex = '1';
-        // Clear input when empty value is selected (to show placeholder)
-        controlInput.value = '';
-        
-        // Clear selection when user clicks/focuses on the input
-        controlInput.addEventListener('focus', function() {
-          if (tomSelectInstance.items.length > 0) {
-            tomSelectInstance.clear();
-            controlInput.value = '';
-          }
-        });
-        
-        // Update input value when selection changes
-        tomSelectInstance.on('item_add', function(value) {
-          if (!value || value === '') {
-            controlInput.value = '';
-          } else {
-            const option = tomSelectInstance.options[value];
-            if (option) {
-              controlInput.value = option.text;
-            }
-          }
-        });
-        tomSelectInstance.on('item_remove', function() {
-          controlInput.value = '';
-        });
-      }
-    }, 0);
-    
-    // Ensure original select is hidden (Tom Select should handle this, but just in case)
-    categorySelect.style.display = 'none';
 
-    function changeQty(productId, delta) {
-      const current = selectedQuantities[productId] || 0;
-      const next = Math.max(0, current + delta);
-      selectedQuantities[productId] = next;
-      const qtySpan = document.getElementById('qty-' + productId);
-      if (qtySpan) qtySpan.textContent = String(next);
-      updateSummary();
-      updateCheckoutBtn();
-    }
-
-    window.incQty = (pid) => changeQty(pid, +1);
-    window.decQty = (pid) => changeQty(pid, -1);
-
-    function createProductCard(pid, name, price, image) {
-      const qty = selectedQuantities[pid] || 0;
-      const card = document.createElement('div'); card.className = 'product';
-      card.innerHTML = `
-        ${image ? `<img src="${image}" alt="${name}">` : '<div style="height:100px;background:#f0f0f0;">Sin Imagen</div>'}
-        <div style=\"font-size:20px;\">${name} (${price})</div>
-        <div class=\"quantity-controls\">
-          <button type=\"button\" onclick=\"decQty(${pid})\">-</button>
-          <span id=\"qty-${pid}\">${qty}</span>
-          <button type=\"button\" onclick=\"incQty(${pid})\">+</button>
-        </div>
-      `;
-      return card;
-    }
-
-    function renderProducts(filterCatId) {
+    // --- 3. Grid Rendering Logic ---
+    function renderGrid(filterId) {
       const grid = document.getElementById('products_grid');
       grid.innerHTML = '';
-      console.log('Rendering products with filterCatId:', filterCatId);
-      console.log('All products:', allProducts);
-      
-      let filtered;
-      if (!filterCatId || filterCatId === '') {
-        // Show all products when "All Categories" is selected
-        filtered = allProducts;
-      } else {
-        // Filter by category
-        filtered = allProducts.filter(p => String(p[5]) === String(filterCatId));
+
+      // Determine which products to show
+      let visibleProducts = PRODUCTS;
+      if (filterId && filterId !== "") {
+        visibleProducts = PRODUCTS.filter(p => String(p[5]) === String(filterId));
       }
-      
-      console.log('Filtered products:', filtered);
-      
-      if (!filterCatId || filterCatId === '') {
-        // Remove grid class from main container for all categories view
-        grid.className = '';
-        
-        // Group products by category and show headers
-        const productsByCategory = {};
-        filtered.forEach(([pid, name, price, image, inventory, category_id]) => {
-          const category = categories.find(([cid, cname]) => String(cid) === String(category_id))?.[1] || 'Unknown';
-          if (!productsByCategory[category]) {
-            productsByCategory[category] = [];
-          }
-          productsByCategory[category].push([pid, name, price, image, inventory, category_id]);
-        });
-        
-        // Render with category headers in the same order as categories list (already ordered by position)
-        categories.forEach(([cid, cname]) => {
-          const categoryProducts = productsByCategory[cname];
-          if (!categoryProducts || categoryProducts.length === 0) return;
 
-          const header = document.createElement('h3');
-          header.textContent = cname;
-          header.style.margin = '20px 0 10px 0';
-          header.style.color = '#67b148';
-          header.style.borderBottom = '2px solid #67b148';
-          header.style.paddingBottom = '5px';
-          header.style.fontSize = '1.5rem';
-          grid.appendChild(header);
+      // Logic: If showing "All", group by headers. If showing "One", just list them.
+      if (!filterId || filterId === "") {
+        // Group by Category Name
+        grid.className = ''; // Remove grid class from container to allow headers
 
-          const categoryGrid = document.createElement('div');
-          categoryGrid.className = 'grid';
-          categoryGrid.style.marginBottom = '30px';
+        CATEGORIES.forEach(([catId, catName]) => {
+          const catProds = visibleProducts.filter(p => String(p[5]) === String(catId));
+          if (catProds.length === 0) return;
 
-          categoryProducts.forEach(([pid, name, price, image]) => {
-            categoryGrid.appendChild(createProductCard(pid, name, price, image));
-          });
+          // Header
+          const h3 = document.createElement('h3');
+          h3.textContent = catName;
+          h3.style.cssText = 'margin: 20px 0 10px; color: #67b148; border-bottom: 2px solid #67b148; font-size: 1.5rem;';
+          grid.appendChild(h3);
 
-          grid.appendChild(categoryGrid);
+          // Sub-grid
+          const subGrid = document.createElement('div');
+          subGrid.className = 'grid';
+          subGrid.style.marginBottom = '30px';
+          subGrid.innerHTML = catProds.map(p => getCardHtml(p[0])).join('');
+          grid.appendChild(subGrid);
         });
       } else {
-        // Restore grid class for single category view
+        // Single Category View
         grid.className = 'grid';
-        
-        // Just show the grid of products for selected category
-        filtered.forEach(([pid, name, price, image]) => {
-          grid.appendChild(createProductCard(pid, name, price, image));
-        });
+        grid.innerHTML = visibleProducts.map(p => getCardHtml(p[0])).join('');
       }
     }
 
-    function updateCheckoutBtn() {
-      const hasItems = Object.values(selectedQuantities).some(q => q > 0);
-      checkoutBtn.disabled = !hasItems;
+    function getCardHtml(pid) {
+      const p = productsMap[pid];
+      const qty = cart[pid] || 0;
+      const imgHtml = p.image ? `<img src="${p.image}" alt="${p.name}">` : `<div style="height:100px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;">No Image</div>`;
+
+      return `
+      <div class="product">
+        ${imgHtml}
+        <div style="font-size:20px; margin:5px 0;">${p.name} ($${p.price})</div>
+        <div class="quantity-controls">
+          <button type="button" onclick="window.updateQty(${pid}, -1)">-</button>
+          <span id="qty-display-${pid}" style="margin:0 10px; font-weight:bold;">${qty}</span>
+          <button type="button" onclick="window.updateQty(${pid}, 1)">+</button>
+        </div>
+      </div>
+    `;
     }
 
-    function updateSummary() {
-      const summaryDiv = document.getElementById('summary');
-      summaryDiv.innerHTML = '';
-      let total = 0;
-      Object.entries(selectedQuantities).forEach(([pidStr, qty]) => {
-        const pid = parseInt(pidStr, 10);
+    // --- 4. Cart & Discount Logic ---
+
+    // Global handler for Grid buttons
+    window.updateQty = function (pid, delta) {
+      const current = cart[pid] || 0;
+      const next = Math.max(0, current + delta);
+      cart[pid] = next;
+
+      // Update Grid Number
+      const disp = document.getElementById(`qty-display-${pid}`);
+      if (disp) disp.innerText = next;
+
+      // Re-render Summary completely (items added/removed)
+      renderSummary();
+      checkButton();
+    };
+
+    // Global handler for Slider (Optimized: No HTML rebuilding)
+    window.updateDiscount = function (pid, val) {
+      discounts[pid] = parseInt(val);
+
+      // Update the visual text only
+      const p = productsMap[pid];
+      const qty = cart[pid];
+      const rawTotal = p.price * qty;
+      const finalTotal = rawTotal - Math.round(rawTotal * (discounts[pid] / 100));
+
+      // Update specific DOM elements
+      document.getElementById(`d-txt-${pid}`).innerText = val + '%';
+      document.getElementById(`price-${pid}`).innerHTML = val > 0
+        ? `<s style="color:#aaa">$${rawTotal}</s> <b style="color:#67b148">$${finalTotal}</b>`
+        : `<b>$${finalTotal}</b>`;
+
+      updateGrandTotal();
+    };
+
+    function renderSummary() {
+      const container = document.getElementById('summary');
+      container.innerHTML = ''; // Reset
+
+      let hasItems = false;
+
+      // Loop through selected items
+      Object.keys(cart).forEach(pidStr => {
+        const pid = parseInt(pidStr);
+        const qty = cart[pid];
         if (qty > 0) {
-          const prod = productById[pid];
-          const discountPercent = discounts[pid] || 0;
-          const originalLineTotal = prod.price * qty;
-          const discountAmount = Math.round(originalLineTotal * discountPercent / 100);
-          const discountedLineTotal = originalLineTotal - discountAmount;
-          total += discountedLineTotal;
-          
-          const div = document.createElement('div');
-          div.className = 'line';
-          div.style.marginBottom = '10px';
-          div.style.paddingBottom = '10px';
-          div.style.borderBottom = '1px solid #eee';
-          
-          // Product name and quantity
-          const nameQty = document.createElement('div');
-          nameQty.style.marginBottom = '8px';
-          nameQty.innerHTML = `<span><strong>${prod.name}</strong> x${qty}</span>`;
-          
-          // Discount slider
-          const sliderContainer = document.createElement('div');
-          sliderContainer.style.display = 'flex';
-          sliderContainer.style.alignItems = 'center';
-          sliderContainer.style.gap = '10px';
-          sliderContainer.style.marginBottom = '5px';
-          
-          const sliderLabel = document.createElement('label');
-          sliderLabel.textContent = 'Descuento:';
-          sliderLabel.style.fontSize = '0.9rem';
-          sliderLabel.style.minWidth = '80px';
-          
-          const slider = document.createElement('input');
-          slider.type = 'range';
-          slider.min = '0';
-          slider.max = '25';
-          slider.step = '5';
-          slider.value = discountPercent;
-          slider.style.flex = '1';
-          slider.style.cursor = 'pointer';
-          slider.addEventListener('input', function() {
-            discounts[pid] = parseInt(this.value);
-            updateSummary();
-          });
-          
-          const discountDisplay = document.createElement('span');
-          discountDisplay.textContent = discountPercent + '%';
-          discountDisplay.style.minWidth = '40px';
-          discountDisplay.style.fontWeight = 'bold';
-          discountDisplay.style.color = discountPercent > 0 ? '#67b148' : '#333';
-          
-          sliderContainer.appendChild(sliderLabel);
-          sliderContainer.appendChild(slider);
-          sliderContainer.appendChild(discountDisplay);
-          
-          // Price display
-          const priceDiv = document.createElement('div');
-          priceDiv.style.display = 'flex';
-          priceDiv.style.justifyContent = 'space-between';
-          priceDiv.style.alignItems = 'center';
-          
-          if (discountPercent > 0) {
-            priceDiv.innerHTML = `
-              <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">$${originalLineTotal}</span>
-              <span style="font-weight: bold; color: #67b148; font-size: 1.1rem;">$${discountedLineTotal}</span>
-            `;
-          } else {
-            priceDiv.innerHTML = `<span style="font-weight: bold;">$${discountedLineTotal}</span>`;
-          }
-          
-          div.appendChild(nameQty);
-          div.appendChild(sliderContainer);
-          div.appendChild(priceDiv);
-          summaryDiv.appendChild(div);
+          hasItems = true;
+          const p = productsMap[pid];
+          const disc = discounts[pid] || 0;
+
+          // Initial Calculation
+          const rawTotal = p.price * qty;
+          const finalTotal = rawTotal - Math.round(rawTotal * (disc / 100));
+
+          const row = document.createElement('div');
+          row.className = 'summary-row';
+          row.innerHTML = `
+          <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+             <span><strong>${p.name}</strong> x${qty}</span>
+             <span id="price-${pid}">
+               ${disc > 0 ? `<s style="color:#aaa">$${rawTotal}</s> <b style="color:#67b148">$${finalTotal}</b>` : `<b>$${finalTotal}</b>`}
+             </span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+             <small>Discount:</small>
+             <input type="range" min="0" max="25" step="5" value="${disc}" 
+                    style="flex:1" oninput="window.updateDiscount(${pid}, this.value)">
+             <strong id="d-txt-${pid}" style="color:#67b148; min-width:35px; text-align:right;">${disc}%</strong>
+          </div>
+        `;
+          container.appendChild(row);
         }
       });
-      // Always show total, even when $0
-      const line = document.createElement('div');
-      line.className = 'line';
-      line.style.borderTop = '2px solid #67b148';
-      line.style.paddingTop = '10px';
-      line.style.marginTop = '10px';
-      line.style.fontSize = '1.2rem';
-      line.innerHTML = `<strong>Total:</strong><strong>$${total}</strong>`;
-      summaryDiv.appendChild(line);
+
+      if (hasItems) {
+        const totalDiv = document.createElement('div');
+        totalDiv.style.cssText = 'display:flex; justify-content:space-between; font-size:1.3rem; margin-top:10px; border-top:2px solid #67b148; padding-top:10px;';
+        totalDiv.innerHTML = `<strong>Total:</strong> <strong id="grand-total">$0</strong>`;
+        container.appendChild(totalDiv);
+        updateGrandTotal();
+      }
     }
 
-    checkoutBtn.addEventListener('click', async function() {
-      const items = Object.entries(selectedQuantities)
-        .filter(([, q]) => q > 0)
-        .map(([pid, q]) => ({ 
-          product_id: parseInt(pid, 10), 
-          qty: q,
-          discount_percent: discounts[parseInt(pid, 10)] || 0
-        }));
-      if (items.length === 0) return;
-      try {
-        const res = await fetch('/api/purchase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items }) });
-        const data = await res.json();
-        if (!res.ok) {
-          if (res.status === 409 && data && data.redirect) {
-            // Redirect to inventory page for conflicts
-            window.location.href = data.redirect;
-            return;
-          } else {
-            alert('Error: ' + (data.error || 'Desconocido'));
-          }
-          return;
+    function updateGrandTotal() {
+      let sum = 0;
+      Object.keys(cart).forEach(pid => {
+        if (cart[pid] > 0) {
+          const p = productsMap[pid];
+          const raw = p.price * cart[pid];
+          const disc = discounts[pid] || 0;
+          sum += (raw - Math.round(raw * (disc / 100)));
         }
-        // Redirect to gracias page with receipt data
-        const receiptData = Object.entries(selectedQuantities)
-          .filter(([, q]) => q > 0)
-          .map(([pid, q]) => {
-            const prod = productById[parseInt(pid, 10)];
-            const discountPercent = discounts[parseInt(pid, 10)] || 0;
-            const originalTotal = prod.price * q;
-            const discountAmount = Math.round(originalTotal * discountPercent / 100);
-            const finalTotal = originalTotal - discountAmount;
-            const category = categories.find(([cid, cname]) => String(cid) === String(prod.category_id))?.[1] || 'Desconocida';
-            return [prod.name, q, finalTotal, category];
-          });
-        const receiptParam = encodeURIComponent(JSON.stringify(receiptData));
-        window.location.href = `/gracias?receipt=${receiptParam}`;
-      } catch (e) {
-        alert('Error de red');
-      }
-    });
+      });
+      const el = document.getElementById('grand-total');
+      if (el) el.innerText = '$' + sum;
+    }
 
-    // Initial render
-    renderProducts(null);
-    updateSummary();
-    updateCheckoutBtn();
-  });
-})();
+    function checkButton() {
+      const hasItems = Object.values(cart).some(q => q > 0);
+      document.getElementById('checkout-btn').disabled = !hasItems;
+    }
+
+    // --- 5. Checkout ---
+    document.getElementById('checkout-btn').onclick = async function () {
+      const items = [];
+      Object.keys(cart).forEach(pid => {
+        if (cart[pid] > 0) {
+          items.push({
+            product_id: parseInt(pid),
+            qty: cart[pid],
+            discount_percent: discounts[pid] || 0
+          });
+        }
+      });
+
+      try {
+        const res = await fetch('/api/purchase', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items })
+        });
+        if (res.ok) {
+          // Prepare receipt data for simple display
+          const receipt = items.map(i => {
+            const p = productsMap[i.product_id];
+            const catName = CATEGORIES.find(c => String(c[0]) === String(p.cat_id))?.[1] || '';
+            const finalPrice = (p.price * i.qty) * (1 - i.discount_percent / 100);
+            return [p.name, i.qty, finalPrice, catName];
+          });
+          window.location.href = `/gracias?receipt=${encodeURIComponent(JSON.stringify(receipt))}`;
+        } else {
+          alert('Error processing order.');
+        }
+      } catch (e) { alert('Network error'); }
+    };
+
+    // Start
+    renderGrid("");
+
+  })();
 </script>
 {% endblock %}
-
